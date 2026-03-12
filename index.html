@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Piloting Academy — Hub</title>
+  <title>AI Academy Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -128,6 +128,7 @@
     .card.emerald::before { background: linear-gradient(90deg, #10B981, #06B6D4); }
     .card.magenta::before { background: linear-gradient(90deg, #EC4899, #B66DFF); }
     .card.orange::before  { background: linear-gradient(90deg, #FF6B35, #E8FF47); }
+    .card.cyan::before    { background: linear-gradient(90deg, #06B6D4, #F4D44F); }
 
     .card:hover::before { opacity: 1; }
 
@@ -186,6 +187,7 @@
     .card.emerald .card-cta { color: #10B981; }
     .card.magenta .card-cta { color: #EC4899; }
     .card.orange .card-cta  { color: #FF6B35; }
+    .card.cyan .card-cta    { color: #06B6D4; }
 
     .card:hover .card-cta { gap: 14px; }
 
@@ -231,10 +233,25 @@
     <div class="divider"></div>
 
     <p class="subtitle">
-      Training resources for the AI Piloting Academy. Pick a version to present.
+      Training resources for the AI Academy. Pick a version to present.
     </p>
 
     <div class="cards">
+
+      <a href="./ai-academy-session01-wow/" class="card cyan">
+        <div class="card-version">V3 · WOW</div>
+        <div class="card-title">AI Academy Session 01</div>
+        <div class="card-desc">
+          Full-screen cinematic deck with layered motion, animated backgrounds, interactive slides, and verbatim content from the Session 01 presentation brief.
+        </div>
+        <div class="card-stack">
+          <span class="chip">VITE</span>
+          <span class="chip">REACT</span>
+          <span class="chip">FRAMER MOTION</span>
+          <span class="chip">24 SLIDES</span>
+        </div>
+        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
+      </a>
 
       <a href="./ai-academy-v2/" class="card emerald">
         <div class="card-version">V2 · CURRENT</div>
@@ -269,7 +286,7 @@
     </div>
 
     <div class="footer">
-      UNICITY · AI PILOTING ACADEMY · SESSION 01
+      UNICITY · AI ACADEMY · SESSION 01
     </div>
   </div>
 </body>
