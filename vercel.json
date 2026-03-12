@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "echo 'skip root install'",
+  "routes": [
+    { "src": "/ai-academy-v2/(.*)", "dest": "/ai-academy-v2/$1" },
+    { "src": "/ai-piloting-academy/(.*)", "dest": "/ai-piloting-academy/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
