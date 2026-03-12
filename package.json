@@ -2,10 +2,11 @@
   "name": "ai-pilot-hub",
   "private": true,
   "scripts": {
-    "build": "npm run build:v1 && npm run build:v2 && npm run build:v3 && npm run assemble",
+    "build": "npm run build:v1 && npm run build:v2 && npm run build:v3 && npm run build:session01 && npm run assemble",
     "build:v1": "cd ai-piloting-academy && npm install && npm run build",
     "build:v2": "cd ai-academy-v2 && npm install && npm run build",
     "build:v3": "cd ai-academy-v3 && npm install && npm run build",
-    "assemble": "mkdir -p dist/ai-academy-v2 dist/ai-academy-v3 dist/ai-piloting-academy && cp index.html dist/ && cp -r ai-academy-v2/dist/* dist/ai-academy-v2/ && cp -r ai-academy-v3/dist/* dist/ai-academy-v3/ && cp -r ai-piloting-academy/dist/* dist/ai-piloting-academy/"
+    "build:session01": "cd ai-academy-session01-wow && npm install && npm run build",
+    "assemble": "mkdir -p dist/ai-academy-v2 dist/ai-academy-v3 dist/ai-piloting-academy dist/ai-academy-session01-wow && cp index.html dist/ && cp -r ai-academy-v2/dist/* dist/ai-academy-v2/ && cp -r ai-academy-v3/dist/* dist/ai-academy-v3/ && cp -r ai-piloting-academy/dist/* dist/ai-piloting-academy/ && cp -r ai-academy-session01-wow/dist/* dist/ai-academy-session01-wow/"
   }
 }
