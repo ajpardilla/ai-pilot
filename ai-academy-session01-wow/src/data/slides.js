@@ -26,6 +26,32 @@ export const slides = [
     body: "AI is dissolving the boundaries between design, development, and product management. Designers can code. Developers can write specs. PMs can build entire products. The roles aren't disappearing — but the lines between them are. The people who thrive won't be the ones who protect their territory. They'll be the ones who expand it.",
   },
   {
+    id: 3.5,
+    type: "roles-contrast",
+    headline: "Engineers vs PMs",
+    left: {
+      title: "Product Managers",
+      bullets: [
+        "High level understanding of business goals",
+        "Roadmapping",
+        "Interaction with customers",
+        "Interaction with stakeholders",
+        "Perspective of real world value of the application",
+      ],
+    },
+    right: {
+      title: "Engineers",
+      bullets: [
+        "Responsible for technology stability",
+        "Learning how to code with AI",
+        "Catching up on the latest technology and processes",
+        "Deep understanding on how system is built",
+      ],
+    },
+    takeaway:
+      "Engineers have the advantage today. As AI gets better, the core skillset of PMs wins in the end, but only if PMs learn how to pilot the AI effectively.",
+  },
+  {
     id: 4,
     type: "cards",
     tag: "THE HUMAN EDGE",

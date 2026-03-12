@@ -86,6 +86,40 @@ function StatementSlide({ slide }) {
   );
 }
 
+function RolesContrastSlide({ slide }) {
+  return (
+    <SlideFrame className="roles-layout">
+      <Motion.h2 className="roles-headline" {...reveal(0.1)}>
+        {slide.headline}
+      </Motion.h2>
+
+      <div className="roles-columns">
+        <Motion.article className="roles-card pm" {...reveal(0.2)}>
+          <div className="roles-title">{slide.left.title}</div>
+          <ul className="roles-list">
+            {slide.left.bullets.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </Motion.article>
+
+        <Motion.article className="roles-card eng" {...reveal(0.28)}>
+          <div className="roles-title">{slide.right.title}</div>
+          <ul className="roles-list">
+            {slide.right.bullets.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </Motion.article>
+      </div>
+
+      <Motion.div className="roles-takeaway" {...reveal(0.4)}>
+        {slide.takeaway}
+      </Motion.div>
+    </SlideFrame>
+  );
+}
+
 function CardsSlide({ slide }) {
   const cardCount = slide.cards.length;
 
@@ -672,6 +706,8 @@ export default function SlideRenderer({ slide }) {
       return <ImageSlide slide={slide} />;
     case "statement":
       return <StatementSlide slide={slide} />;
+    case "roles-contrast":
+      return <RolesContrastSlide slide={slide} />;
     case "cards":
       return <CardsSlide slide={slide} />;
     case "manifesto":
