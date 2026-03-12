@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "installCommand": "echo 'skip root install'",
   "routes": [
-    { "src": "/ai-academy-session01-wow/(.*)", "dest": "/ai-academy-session01-wow/$1" },
+    { "src": "/ai-academy-v3/(.*)", "dest": "/ai-academy-v3/$1" },
     { "src": "/ai-academy-v2/(.*)", "dest": "/ai-academy-v2/$1" },
     { "src": "/ai-piloting-academy/(.*)", "dest": "/ai-piloting-academy/$1" },
     { "src": "/(.*)", "dest": "/$1" }
