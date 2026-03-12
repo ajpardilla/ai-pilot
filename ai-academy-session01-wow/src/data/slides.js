@@ -1,3 +1,5 @@
+import memeImage from "../assets/meme.jpg";
+
 export const slides = [
   {
     id: 1,
@@ -15,7 +17,7 @@ export const slides = [
   {
     id: 2,
     type: "image",
-    image: `${import.meta.env.BASE_URL}meme.jpg`,
+    image: memeImage,
     alt: "",
   },
   {
