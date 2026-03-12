@@ -36,7 +36,94 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 export default function App() {
   useEffect(() => {
     ScrollTrigger.refresh()
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill())
+
+    let isAnimating = false
+    let currentIndex = 0
+
+    const getTargets = () => {
+      const sections = document.querySelectorAll('[data-section]')
+      return Array.from(sections)
+    }
+
+    const findCurrentIndex = () => {
+      const sections = getTargets()
+      const scrollY = window.scrollY + window.innerHeight / 2
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].getBoundingClientRect().top + window.scrollY <= scrollY) {
+          return i
+        }
+      }
+      return 0
+    }
+
+    const goToSection = (index) => {
+      const sections = getTargets()
+      if (index < 0 || index >= sections.length || isAnimating) return
+      isAnimating = true
+      currentIndex = index
+      gsap.to(window, {
+        scrollTo: { y: sections[index], autoKill: false },
+        duration: 0.8,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          isAnimating = false
+        },
+      })
+    }
+
+    const onWheel = (e) => {
+      // If inside a pinned section that's still scrubbing, let GSAP handle it
+      const pinned = ScrollTrigger.getAll().filter(
+        (st) => st.pin && st.isActive && st.progress > 0 && st.progress < 1
+      )
+      if (pinned.length > 0) return
+
+      e.preventDefault()
+      if (isAnimating) return
+      currentIndex = findCurrentIndex()
+      if (e.deltaY > 0) {
+        goToSection(currentIndex + 1)
+      } else if (e.deltaY < 0) {
+        goToSection(currentIndex - 1)
+      }
+    }
+
+    const onKeyDown = (e) => {
+      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) {
+        const pinned = ScrollTrigger.getAll().filter(
+          (st) => st.pin && st.isActive && st.progress > 0 && st.progress < 1
+        )
+        if (pinned.length > 0) return
+
+        e.preventDefault()
+        if (isAnimating) return
+        currentIndex = findCurrentIndex()
+        goToSection(currentIndex + 1)
+      } else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
+        const pinned = ScrollTrigger.getAll().filter(
+          (st) => st.pin && st.isActive && st.progress > 0 && st.progress < 1
+        )
+        if (pinned.length > 0) return
+
+        e.preventDefault()
+        if (isAnimating) return
+        currentIndex = findCurrentIndex()
+        goToSection(currentIndex - 1)
+      }
+    }
+
+    // Delay attaching to let ScrollTrigger pins settle
+    const timer = setTimeout(() => {
+      window.addEventListener('wheel', onWheel, { passive: false })
+      window.addEventListener('keydown', onKeyDown)
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKeyDown)
+      ScrollTrigger.getAll().forEach((t) => t.kill())
+    }
   }, [])
 
   return (
