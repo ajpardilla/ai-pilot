@@ -15,7 +15,7 @@ export const slides = [
   {
     id: 2,
     type: "image",
-    image: "/meme.jpg",
+    image: `${import.meta.env.BASE_URL}meme.jpg`,
     alt: "",
   },
   {
