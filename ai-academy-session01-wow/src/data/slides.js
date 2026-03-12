@@ -165,13 +165,6 @@ export const slides = [
     body: "Bad input, bad output. Every time. The quality of what AI gives you is a direct reflection of the quality of what you give it. Most people never figure this out.",
   },
   {
-    id: 10,
-    type: "statement",
-    tag: "SESSION 01 · THE BASICS",
-    headline: "What is an LLM?",
-    body: "A Large Language Model is a prediction engine trained on massive amounts of text. It doesn't \"think\" — it predicts the most likely next word based on everything it's seen. That's why context matters so much. The more relevant information you give it, the better its predictions become. Claude, ChatGPT, Gemini — they're all LLMs. Different models, same core idea.",
-  },
-  {
     id: 11,
     type: "cards",
     tag: "SESSION 01 · THE TOOLS",
@@ -647,15 +640,15 @@ export const slides = [
     headline: "This week's assignment.",
     due: "Present at Session 02",
     assignment:
-      "Complete the must-do items below before Session 02. Stretch goals are optional but will put you ahead of the curve.",
+      "Complete the must-do items below before Session 02.",
     items: [
-      "MUST DO: Pick a coding tool and have a working setup on your machine",
+      "MUST DO: Pick a coding tool and have a working setup on your machine — Setup your cockpit",
       "MUST DO: Create a global CLAUDE.md with your role, tone, and 3 rules",
       "MUST DO: 3 minutes to present — show your setup, your CLAUDE.md, and what you built with it",
-      "STRETCH: Establish a shared repo of skills for your team — start collaborating on playbooks",
-      "STRETCH: Come up with a personal project (Unicity or non-Unicity) you want to build with Claude or Codex",
-      "STRETCH: Create your first pull request — prompt → code → commit → PR. It can be small. Go through the full cycle",
-      "BONUS: Start in plan mode, clear the context window, then execute. Build a task ritual into your CLAUDE.md",
+      "MUST DO: Establish a shared repo of skills for your team — start collaborating on playbooks",
+      "MUST DO: Come up with a personal project (Unicity or non-Unicity) you want to build with Claude or Codex",
+      "MUST DO: Create your first pull request — prompt → code → commit → PR. It can be small. Go through the full cycle",
+      "MUST DO: Start in plan mode, clear the context window, then execute. Build a task ritual into your CLAUDE.md",
     ],
   },
   {
