@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Geist', 'Inter', sans-serif;
+  --font-body: 'Geist', 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  
+  --color-brand-accent: #FF3366; /* Electric Neon Pink/Red */
+  
+  --color-bg-base: #000000;
+  --color-bg-surface: #0a0a0a;
+  --color-bg-elevated: #111111;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #888888;
+  --color-text-muted: #555555;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  /* Absolute crispness */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-text-primary);
+  color: var(--color-bg-base);
+}
+
+::-webkit-scrollbar { display: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.monolith-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.monolith-panel {
+  background: var(--color-bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px; /* Brutalist minimal rounding */
+}
+
+.code-block {
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: left;
+  color: #a0a0a0;
+}
