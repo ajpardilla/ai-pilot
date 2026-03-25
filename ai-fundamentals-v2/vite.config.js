@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/ai-fundamentals-session01/",
+  base: "/ai-fundamentals-v2/",
 });
