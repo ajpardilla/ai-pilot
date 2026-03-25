@@ -556,9 +556,12 @@ function TipsVisual({ tip }) {
   );
 }
 
-function TipsSlide({ slide }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeTip = slide.tips[activeIndex];
+function TipsSlide({ slide, activeIndex: activeIndexProp }) {
+  const [activeIndex, setActiveIndex] = useState(activeIndexProp ?? 0);
+  const resolvedIndex = activeIndexProp ?? activeIndex;
+  const safeIndex = Math.min(Math.max(resolvedIndex, 0), slide.tips.length - 1);
+  const activeTip = slide.tips[safeIndex];
+  const isLocked = activeIndexProp !== undefined && activeIndexProp !== null;
 
   return (
     <SlideFrame className="tips-layout">
@@ -573,8 +576,8 @@ function TipsSlide({ slide }) {
             <Motion.button
               key={tip.key}
               type="button"
-              className={`tips-tab${activeIndex === index ? " active" : ""}`}
-              onClick={() => setActiveIndex(index)}
+              className={`tips-tab${safeIndex === index ? " active" : ""}`}
+              onClick={isLocked ? undefined : () => setActiveIndex(index)}
               {...reveal(0.2 + index * 0.07)}
             >
               <span>{tip.key}</span>
@@ -601,9 +604,12 @@ function TipsSlide({ slide }) {
   );
 }
 
-function SetupSlide({ slide }) {
-  const [activeStep, setActiveStep] = useState(0);
-  const currentStep = slide.steps[activeStep];
+function SetupSlide({ slide, activeStep: activeStepProp }) {
+  const [activeStep, setActiveStep] = useState(activeStepProp ?? 0);
+  const resolvedStep = activeStepProp ?? activeStep;
+  const safeStep = Math.min(Math.max(resolvedStep, 0), slide.steps.length - 1);
+  const currentStep = slide.steps[safeStep];
+  const isLocked = activeStepProp !== undefined && activeStepProp !== null;
 
   const stepTokens = useMemo(
     () => slide.steps.map((step) => step.title.split(":")[0].replace("Step ", "")),
@@ -626,8 +632,8 @@ function SetupSlide({ slide }) {
             <Motion.button
               type="button"
               key={step.title}
-              className={`setup-tab${activeStep === index ? " active" : ""}`}
-              onClick={() => setActiveStep(index)}
+              className={`setup-tab${safeStep === index ? " active" : ""}`}
+              onClick={isLocked ? undefined : () => setActiveStep(index)}
               {...reveal(0.22 + index * 0.07)}
             >
               <span>{stepTokens[index]}</span>
@@ -698,7 +704,7 @@ function EndSlide({ slide }) {
   );
 }
 
-export default function SlideRenderer({ slide }) {
+export default function SlideRenderer({ slide, printVariant }) {
   switch (slide.type) {
     case "title":
       return <TitleSlide slide={slide} />;
@@ -729,9 +735,9 @@ export default function SlideRenderer({ slide }) {
     case "centered":
       return <CenteredSlide slide={slide} />;
     case "tips":
-      return <TipsSlide slide={slide} />;
+      return <TipsSlide slide={slide} activeIndex={printVariant?.activeTipIndex} />;
     case "setup":
-      return <SetupSlide slide={slide} />;
+      return <SetupSlide slide={slide} activeStep={printVariant?.activeStepIndex} />;
     case "homework":
       return <HomeworkSlide slide={slide} />;
     case "end":

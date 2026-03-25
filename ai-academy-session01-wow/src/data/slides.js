@@ -671,8 +671,8 @@ export const slides = [
       "Complete the must-do items below before Session 02.",
     items: [
       "MUST DO: Pick a coding tool and have a working setup on your machine — Setup your cockpit",
-      "MUST DO: Create a global CLAUDE.md with your role, tone, and 3 rules",
       "MUST DO: 3 minutes to present — show your setup, your CLAUDE.md, and what you built with it",
+      "MUST DO: Create a global CLAUDE.md with your role, tone, and 3 rules",
       "MUST DO: Establish a shared repo of skills for your team — start collaborating on playbooks",
       "MUST DO: Come up with a personal project (Unicity or non-Unicity) you want to build with Claude or Codex",
       "MUST DO: Create your first pull request — prompt → code → commit → PR. It can be small. Go through the full cycle",
