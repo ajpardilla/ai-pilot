@@ -17,7 +17,7 @@
   --magenta: #f871bc;
   --mono: "IBM Plex Mono", monospace;
   --display: "Space Grotesk", sans-serif;
-  --serif: "DM Serif Display", serif;
+  --serif: "Playfair Display", serif;
 }
 
 * {
@@ -309,8 +309,7 @@ body,
 .title-line.muted-italic {
   font-size: clamp(2.2rem, 5.8vw, 5.5rem);
   color: rgba(224, 233, 255, 0.4);
-  font-family: var(--serif);
-  font-style: italic;
+  font-weight: 300;
 }
 
 .title-line.strong {
