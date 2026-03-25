@@ -189,35 +189,6 @@ export const slides = [
     body: "Prompting is the skill of properly articulating your problem and desired outcome to AI. The clearer you are about what you need, the context behind it, and how you want the answer — the better the result.",
   },
   {
-    id: 9,
-    type: "cards",
-    tag: "BEFORE YOU HIT ENTER",
-    headline: "Before you hit enter, ask yourself 3 questions.",
-    cards: [
-      {
-        letter: "1",
-        name: "Did I set the identity and context?",
-        description: "Tell AI who it should be and what it needs to know. A senior strategist writes differently than a general assistant.",
-        example:
-          "\"You are a senior marketing strategist at Unicity. We're launching Unimate in Thailand next quarter. Our audience is health-conscious millennials aged 25-35.\"",
-      },
-      {
-        letter: "2",
-        name: "Did I explain the problem?",
-        description: "Articulate the situation clearly. Give AI the background it needs to understand what you're dealing with.",
-        example:
-          "\"We're losing market share to Brand X on price. Our current messaging focuses on ingredients but doesn't connect emotionally with the Thai market.\"",
-      },
-      {
-        letter: "3",
-        name: "Did I state my desired outcome?",
-        description: "Be specific about what you want to walk away with. Vague asks get vague results.",
-        example:
-          "\"I need a campaign brief with 3 messaging angles that each address a different customer pain point. This is for our regional marketing team to execute.\"",
-      },
-    ],
-  },
-  {
     id: 10,
     type: "comparison",
     tag: "IN ACTION",
@@ -528,6 +499,12 @@ export const slides = [
         cowork: "Instagram trend research, multi-platform content from one photo, mood board from references",
         code: "—",
       },
+      {
+        dept: "Everyone",
+        chat: "Quick Q&A, summarize a doc, rewrite text, explain something, translate content",
+        cowork: "Multi-step workflows, research → analyze → write in one go, Projects that remember your files and context, connect to Slack, Drive, ClickUp",
+        code: "—",
+      },
     ],
     footnote: "Start with Chat. Graduate to Cowork. Code is for developers.",
   },
@@ -566,7 +543,7 @@ export const slides = [
     id: 21.5,
     type: "cards",
     tag: "TL;DR — WHAT TO ACTUALLY DO",
-    headline: "When do I use what?",
+    headline: "Recap.",
     cards: [
       {
         letter: "💬",
@@ -609,6 +586,18 @@ export const slides = [
       "Try Claude Cowork — give it a multi-step task like researching a topic and summarizing findings into a doc",
       "Come ready to share: what you tried, what worked, and what didn't",
     ],
+    preview: {
+      title: "What's in Session 2",
+      items: [
+        "Role-based sessions for your department using real workflows from your team",
+        "Properly articulating problems to AI — going deeper on prompting",
+        "Identifying repetitive work that AI can automate",
+        "AI for research, automations, and dashboards",
+        "Marketing automation: GEO, ad factory, competitive analysis, sales optimization",
+        "Creative automation: videos, images, creative iteration, vibe design tools",
+        "Content generation: copywriting, blog posts, technical writing, content factory",
+      ],
+    },
   },
   {
     id: 23,

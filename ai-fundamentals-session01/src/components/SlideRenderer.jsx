@@ -1653,6 +1653,17 @@ function HomeworkSlide({ slide }) {
           </Motion.article>
         ))}
       </div>
+
+      {slide.preview ? (
+        <Motion.div className="homework-preview" {...reveal(0.7)}>
+          <h3 className="homework-preview-title">{slide.preview.title}</h3>
+          <ul className="homework-preview-list">
+            {slide.preview.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </Motion.div>
+      ) : null}
     </SlideFrame>
   );
 }
