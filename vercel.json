@@ -1,0 +1,4 @@
+{
+  "buildCommand": "cd ai-academy-session01-wow && npm install && npm run build && cd ../ai-fundamentals-session01 && npm install && npm run build && cd .. && mkdir -p dist/ai-academy-session01-wow && mkdir -p dist/ai-fundamentals-session01 && cp -r ai-academy-session01-wow/dist/* dist/ai-academy-session01-wow/ && cp -r ai-fundamentals-session01/dist/* dist/ai-fundamentals-session01/ && cp index.html dist/",
+  "outputDirectory": "dist"
+}
