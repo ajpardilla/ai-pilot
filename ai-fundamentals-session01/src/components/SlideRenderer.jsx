@@ -79,8 +79,12 @@ function StatementSlide({ slide }) {
       <Motion.h1 className="statement-headline" {...reveal(0.16)}>
         {slide.headline}
       </Motion.h1>
-      <Motion.p className="statement-body" {...reveal(0.3)}>
-        {slide.body}
+      <Motion.p
+        className="statement-body"
+        {...reveal(0.3)}
+        dangerouslySetInnerHTML={slide.body?.includes("<") ? { __html: slide.body } : undefined}
+      >
+        {slide.body?.includes("<") ? undefined : slide.body}
       </Motion.p>
     </SlideFrame>
   );
@@ -227,7 +231,558 @@ function VectorSpaceVisual() {
   );
 }
 
+function SkillGaugeVisual() {
+  const levels = [
+    { label: "Never used AI", pct: 5, color: "rgba(140,170,220,0.2)" },
+    { label: "Ask basic questions", pct: 25, color: "rgba(140,170,220,0.35)" },
+    { label: "Use it for drafts", pct: 50, color: "var(--orange)" },
+    { label: "CRAFT prompts + context", pct: 78, color: "var(--cyan)" },
+    { label: "AI-native workflow", pct: 100, color: "var(--emerald)" },
+  ];
+
+  return (
+    <div className="gauge-visual">
+      <div className="gauge-label-top">AI SKILL LEVEL</div>
+      <div className="gauge-bars">
+        {levels.map((level, i) => (
+          <Motion.div
+            key={level.label}
+            className="gauge-row"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 + i * 0.12 }}
+          >
+            <div className="gauge-row-label">{level.label}</div>
+            <div className="gauge-track">
+              <Motion.div
+                className="gauge-fill"
+                style={{ background: level.color }}
+                initial={{ width: 0 }}
+                animate={{ width: `${level.pct}%` }}
+                transition={{ duration: 0.8, delay: 0.5 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
+          </Motion.div>
+        ))}
+      </div>
+      <Motion.div
+        className="gauge-marker"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4 }}
+      >
+        <span className="gauge-marker-arrow">→</span>
+        <span>Most people are here. This program moves you up.</span>
+      </Motion.div>
+    </div>
+  );
+}
+
+function CompetitiveEdgeVisual() {
+  const withAI = [10, 18, 30, 48, 72, 100];
+  const withoutAI = [10, 14, 17, 20, 22, 24];
+  const labels = ["2020", "2021", "2022", "2023", "2024", "2025"];
+
+  const toPath = (points) =>
+    points.map((p, i) => {
+      const x = 10 + (i / (points.length - 1)) * 80;
+      const y = 90 - (p / 100) * 78;
+      return `${i === 0 ? "M" : "L"}${x},${y}`;
+    }).join(" ");
+
+  return (
+    <div className="edge-visual">
+      <svg viewBox="0 0 100 100" className="edge-svg">
+        {/* Grid */}
+        {[20, 40, 60, 80].map((y) => (
+          <line key={y} x1="10" y1={y} x2="90" y2={y} stroke="rgba(140,170,220,0.08)" strokeWidth="0.3" />
+        ))}
+
+        {/* Without AI line */}
+        <Motion.path
+          d={toPath(withoutAI)}
+          fill="none"
+          stroke="rgba(140,170,220,0.3)"
+          strokeWidth="0.8"
+          strokeDasharray="2 1.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.4 }}
+        />
+
+        {/* With AI line */}
+        <Motion.path
+          d={toPath(withAI)}
+          fill="none"
+          stroke="var(--emerald)"
+          strokeWidth="1.2"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.6 }}
+        />
+
+        {/* Glow area under AI line */}
+        <Motion.path
+          d={`${toPath(withAI)} L90,90 L10,90 Z`}
+          fill="url(#aiGlow)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        />
+        <defs>
+          <linearGradient id="aiGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(60,231,179,0.15)" />
+            <stop offset="100%" stopColor="rgba(60,231,179,0)" />
+          </linearGradient>
+        </defs>
+
+        {/* End dots */}
+        <Motion.circle cx="90" cy={90 - (100 / 100) * 78} r="1.8" fill="var(--emerald)"
+          initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8 }} />
+        <Motion.circle cx="90" cy={90 - (24 / 100) * 78} r="1.2" fill="rgba(140,170,220,0.4)"
+          initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.8 }} />
+
+        {/* Labels */}
+        {labels.map((label, i) => (
+          <text key={label} x={10 + (i / (labels.length - 1)) * 80} y="97"
+            textAnchor="middle" fill="rgba(140,170,220,0.35)" fontSize="2.8" fontFamily="var(--mono)">
+            {label}
+          </text>
+        ))}
+
+        {/* Legend */}
+        <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
+          <line x1="12" y1="8" x2="18" y2="8" stroke="var(--emerald)" strokeWidth="1" />
+          <text x="20" y="9.5" fill="var(--emerald)" fontSize="3" fontFamily="var(--mono)">Teams with AI fluency</text>
+          <line x1="12" y1="13" x2="18" y2="13" stroke="rgba(140,170,220,0.35)" strokeWidth="0.8" strokeDasharray="2 1.5" />
+          <text x="20" y="14.5" fill="rgba(140,170,220,0.4)" fontSize="3" fontFamily="var(--mono)">Teams without</text>
+        </Motion.g>
+      </svg>
+    </div>
+  );
+}
+
+function WorkJoyVisual() {
+  const before = [
+    { label: "Emails & admin", pct: 35, color: "rgba(140,170,220,0.25)", dark: false },
+    { label: "Data entry & formatting", pct: 25, color: "rgba(140,170,220,0.2)", dark: false },
+    { label: "Research & searching", pct: 20, color: "rgba(140,170,220,0.15)", dark: false },
+    { label: "Creative & strategic work", pct: 15, color: "var(--orange)", dark: true },
+    { label: "Learning & growth", pct: 5, color: "var(--violet)", dark: false },
+  ];
+
+  const after = [
+    { label: "Emails & admin", pct: 10, color: "rgba(140,170,220,0.15)", dark: false },
+    { label: "Data entry & formatting", pct: 5, color: "rgba(140,170,220,0.1)", dark: false },
+    { label: "Research & searching", pct: 10, color: "rgba(140,170,220,0.12)", dark: false },
+    { label: "Creative & strategic work", pct: 45, color: "var(--emerald)", dark: true },
+    { label: "Learning & growth", pct: 30, color: "var(--cyan)", dark: true },
+  ];
+
+  return (
+    <div className="joy-visual">
+      <div className="joy-column">
+        <div className="joy-column-title">WITHOUT AI</div>
+        <div className="joy-stack">
+          {before.map((item, i) => (
+            <Motion.div
+              key={`b-${item.label}`}
+              className={`joy-bar${item.dark ? " joy-bar-dark" : ""}`}
+              style={{ background: item.color }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: `${item.pct * 2.2}px`, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
+            >
+              <span className="joy-bar-label">{item.label}</span>
+              <span className="joy-bar-pct">{item.pct}%</span>
+            </Motion.div>
+          ))}
+        </div>
+      </div>
+      <Motion.div className="joy-arrow"
+        initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2 }}>→</Motion.div>
+      <div className="joy-column">
+        <div className="joy-column-title">WITH AI</div>
+        <div className="joy-stack">
+          {after.map((item, i) => (
+            <Motion.div
+              key={`a-${item.label}`}
+              className={`joy-bar${item.dark ? " joy-bar-dark" : ""}`}
+              style={{ background: item.color }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: `${item.pct * 2.2}px`, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 + i * 0.08 }}
+            >
+              <span className="joy-bar-label">{item.label}</span>
+              <span className="joy-bar-pct">{item.pct}%</span>
+            </Motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FundamentalsFlowVisual() {
+  return (
+    <div className="fund-flow">
+      <svg viewBox="0 0 100 120" className="fund-svg">
+        {/* Prompt box */}
+        <Motion.g initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
+          <rect x="10" y="4" width="80" height="18" rx="3" fill="rgba(244,212,79,0.1)" stroke="var(--yellow)" strokeWidth="0.6" />
+          <text x="50" y="11" textAnchor="middle" fill="var(--yellow)" fontSize="3.2" fontFamily="var(--mono)" fontWeight="700">YOUR PROMPT</text>
+          <text x="50" y="17" textAnchor="middle" fill="rgba(232,240,255,0.5)" fontSize="2.4" fontFamily="var(--mono)">"Write a campaign brief for APAC..."</text>
+        </Motion.g>
+
+        {/* Arrow down */}
+        <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
+          <line x1="50" y1="24" x2="50" y2="34" stroke="rgba(140,170,220,0.3)" strokeWidth="0.5" />
+          <polygon points="47,33 50,37 53,33" fill="rgba(140,170,220,0.3)" />
+        </Motion.g>
+
+        {/* Context Window box */}
+        <Motion.g initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, duration: 0.6 }}>
+          <rect x="5" y="38" width="90" height="48" rx="4" fill="rgba(45,215,242,0.04)" stroke="var(--cyan)" strokeWidth="0.6" strokeDasharray="2 1" />
+          <text x="50" y="46" textAnchor="middle" fill="var(--cyan)" fontSize="2.8" fontFamily="var(--mono)" fontWeight="700">CONTEXT WINDOW</text>
+
+          {/* Inner items */}
+          <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}>
+            <rect x="10" y="50" width="36" height="10" rx="2" fill="rgba(60,231,179,0.08)" stroke="rgba(60,231,179,0.2)" strokeWidth="0.4" />
+            <text x="28" y="54" textAnchor="middle" fill="var(--emerald)" fontSize="2.2" fontFamily="var(--mono)">System Instructions</text>
+            <text x="28" y="57.5" textAnchor="middle" fill="rgba(232,240,255,0.35)" fontSize="1.8" fontFamily="var(--mono)">Rules, safety, settings</text>
+          </Motion.g>
+
+          <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}>
+            <rect x="54" y="50" width="36" height="10" rx="2" fill="rgba(158,142,255,0.08)" stroke="rgba(158,142,255,0.2)" strokeWidth="0.4" />
+            <text x="72" y="54" textAnchor="middle" fill="var(--violet)" fontSize="2.2" fontFamily="var(--mono)">Your Files</text>
+            <text x="72" y="57.5" textAnchor="middle" fill="rgba(232,240,255,0.35)" fontSize="1.8" fontFamily="var(--mono)">PDFs, docs, data</text>
+          </Motion.g>
+
+          <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}>
+            <rect x="10" y="64" width="36" height="10" rx="2" fill="rgba(244,212,79,0.08)" stroke="rgba(244,212,79,0.2)" strokeWidth="0.4" />
+            <text x="28" y="68" textAnchor="middle" fill="var(--yellow)" fontSize="2.2" fontFamily="var(--mono)">Chat History</text>
+            <text x="28" y="71.5" textAnchor="middle" fill="rgba(232,240,255,0.35)" fontSize="1.8" fontFamily="var(--mono)">Messages back & forth</text>
+          </Motion.g>
+
+          <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }}>
+            <rect x="54" y="64" width="36" height="10" rx="2" fill="rgba(255,148,79,0.08)" stroke="rgba(255,148,79,0.2)" strokeWidth="0.4" />
+            <text x="72" y="68" textAnchor="middle" fill="var(--orange)" fontSize="2.2" fontFamily="var(--mono)">AI Responses</text>
+            <text x="72" y="71.5" textAnchor="middle" fill="rgba(232,240,255,0.35)" fontSize="1.8" fontFamily="var(--mono)">Previous outputs</text>
+          </Motion.g>
+
+          <Motion.text x="50" y="82" textAnchor="middle" fill="rgba(232,240,255,0.25)" fontSize="1.8" fontFamily="var(--mono)"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
+            everything has to fit on one desk
+          </Motion.text>
+        </Motion.g>
+
+        {/* Arrow down */}
+        <Motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}>
+          <line x1="50" y1="88" x2="50" y2="98" stroke="rgba(140,170,220,0.3)" strokeWidth="0.5" />
+          <polygon points="47,97 50,101 53,97" fill="rgba(140,170,220,0.3)" />
+        </Motion.g>
+
+        {/* Output box */}
+        <Motion.g initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.4, duration: 0.6 }}>
+          <rect x="15" y="102" width="70" height="14" rx="3" fill="rgba(60,231,179,0.1)" stroke="var(--emerald)" strokeWidth="0.6" />
+          <text x="50" y="108" textAnchor="middle" fill="var(--emerald)" fontSize="3" fontFamily="var(--mono)" fontWeight="700">AI RESPONSE</text>
+          <text x="50" y="113" textAnchor="middle" fill="rgba(232,240,255,0.45)" fontSize="2.2" fontFamily="var(--mono)">Quality depends on both skills ↑</text>
+        </Motion.g>
+      </svg>
+    </div>
+  );
+}
+
+function TimeSaveVisual() {
+  const quickPath = [
+    { label: "Quick prompt", time: "10s", icon: "⚡" },
+    { label: "\"Not what I meant\"", time: "+2m", icon: "🔄" },
+    { label: "\"Make it shorter\"", time: "+2m", icon: "🔄" },
+    { label: "\"Wrong tone\"", time: "+2m", icon: "🔄" },
+    { label: "\"Add the data\"", time: "+3m", icon: "🔄" },
+    { label: "\"Start over\"", time: "+5m", icon: "🔄" },
+    { label: "Finally usable", time: "", icon: "😩" },
+  ];
+
+  const thoughtfulPath = [
+    { label: "Think about prompt", time: "1m", icon: "🧠" },
+    { label: "Write detailed prompt", time: "2m", icon: "✍️" },
+    { label: "Great result", time: "", icon: "✅" },
+  ];
+
+  return (
+    <div className="timesave-visual">
+      <div className="timesave-col">
+        <div className="timesave-header bad">~15 MINUTES</div>
+        {quickPath.map((step, i) => (
+          <Motion.div
+            key={`q-${i}`}
+            className={`timesave-step ${i === quickPath.length - 1 ? "final bad" : "bad"}`}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 + i * 0.12 }}
+          >
+            <span className="timesave-icon">{step.icon}</span>
+            <span className="timesave-label">{step.label}</span>
+            {step.time ? <span className="timesave-time">{step.time}</span> : null}
+          </Motion.div>
+        ))}
+      </div>
+      <div className="timesave-vs">vs</div>
+      <div className="timesave-col">
+        <div className="timesave-header good">~3 MINUTES</div>
+        {thoughtfulPath.map((step, i) => (
+          <Motion.div
+            key={`t-${i}`}
+            className={`timesave-step ${i === thoughtfulPath.length - 1 ? "final good" : "good"}`}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6 + i * 0.15 }}
+          >
+            <span className="timesave-icon">{step.icon}</span>
+            <span className="timesave-label">{step.label}</span>
+            {step.time ? <span className="timesave-time">{step.time}</span> : null}
+          </Motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TerminalMockVisual() {
+  const lines = [
+    { text: "$ claude", type: "cmd", delay: 0.3 },
+    { text: "", type: "blank", delay: 0.5 },
+    { text: "╭─────────────────────────────────────────╮", type: "border", delay: 0.6 },
+    { text: "│  Claude Code v1.0  ·  ai-fundamentals/  │", type: "border", delay: 0.65 },
+    { text: "╰─────────────────────────────────────────╯", type: "border", delay: 0.7 },
+    { text: "", type: "blank", delay: 0.8 },
+    { text: "> Build a landing page for the Q2 campaign", type: "prompt", delay: 0.9 },
+    { text: "", type: "blank", delay: 1.1 },
+    { text: "● Reading project files...", type: "action", delay: 1.2 },
+    { text: "● Loading brand-guidelines.md", type: "action", delay: 1.4 },
+    { text: "● Creating src/pages/campaign.jsx", type: "action", delay: 1.6 },
+    { text: "● Creating src/styles/campaign.css", type: "action", delay: 1.8 },
+    { text: "● Running tests... 4/4 passed ✓", type: "success", delay: 2.0 },
+    { text: "● Creating pull request #142", type: "success", delay: 2.2 },
+    { text: "", type: "blank", delay: 2.4 },
+    { text: "Done. PR ready for review.", type: "result", delay: 2.5 },
+  ];
+
+  return (
+    <div className="term-mock">
+      <div className="term-chrome">
+        <div className="mock-ui-dots"><span /><span /><span /></div>
+        <div className="term-title">Terminal</div>
+      </div>
+      <div className="term-body">
+        {lines.map((line, i) => (
+          <Motion.div
+            key={`term-${i}`}
+            className={`term-line ${line.type}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: line.delay }}
+          >
+            {line.text || "\u00A0"}
+          </Motion.div>
+        ))}
+        <Motion.div
+          className="term-cursor"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 1, delay: 2.8, repeat: Infinity }}
+        >
+          █
+        </Motion.div>
+      </div>
+    </div>
+  );
+}
+
+function ContextWindowSimpleVisual() {
+  const blocks = [
+    { label: "System Rules", pct: 12, color: "rgba(60,231,179,0.5)", y: 0 },
+    { label: "Your Files", pct: 22, color: "var(--violet)", y: 12 },
+    { label: "Chat History", pct: 30, color: "var(--yellow)", y: 34 },
+    { label: "AI Responses", pct: 22, color: "var(--cyan)", y: 64 },
+    { label: "Your Prompt", pct: 14, color: "var(--orange)", y: 86 },
+  ];
+
+  return (
+    <div className="cw-simple">
+      <div className="cw-desk">
+        <div className="cw-desk-label">CONTEXT WINDOW</div>
+        <div className="cw-stack">
+          {blocks.map((block, i) => (
+            <Motion.div
+              key={block.label}
+              className="cw-block"
+              style={{
+                height: `${block.pct}%`,
+                background: block.color,
+              }}
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="cw-block-label">{block.label}</span>
+              <span className="cw-block-pct">{block.pct}%</span>
+            </Motion.div>
+          ))}
+        </div>
+        <Motion.div
+          className="cw-limit"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <div className="cw-limit-line" />
+          <span>LIMIT — older content gets dropped</span>
+        </Motion.div>
+      </div>
+      <Motion.div
+        className="cw-tips"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.8 }}
+      >
+        <span>🆕 New topic = new chat</span>
+        <span>📎 Upload only what's relevant</span>
+        <span>✂️ One task per prompt</span>
+      </Motion.div>
+    </div>
+  );
+}
+
+function ContentRotVisual() {
+  const stages = [
+    {
+      label: "MEMORY IS FRESH",
+      slots: Array.from({ length: 10 }, (_, i) => ({
+        label: `Q${i + 1}`,
+        type: "full",
+      })),
+      note: "10 questions in memory",
+      noteColor: "var(--emerald)",
+    },
+    {
+      label: "QUESTION #11",
+      slots: [
+        { label: "Summary of Q1-Q5", type: "compressed", span: 5 },
+        ...Array.from({ length: 5 }, (_, i) => ({
+          label: `Q${i + 6}`,
+          type: "full",
+        })),
+        { label: "Q11", type: "new" },
+      ],
+      note: "Q1-Q5 compressed — details lost",
+      noteColor: "var(--yellow)",
+    },
+    {
+      label: "KEEPS GOING...",
+      slots: [
+        { label: "Summary of summaries", type: "compressed", span: 7 },
+        ...Array.from({ length: 3 }, (_, i) => ({
+          label: `Q${i + 18}`,
+          type: "full",
+        })),
+        { label: "Q21", type: "new" },
+      ],
+      note: "Original context is gone",
+      noteColor: "#ff6b6b",
+    },
+  ];
+
+  return (
+    <div className="rot-visual-h">
+      <div className="rot-title">Content Rot — Why long conversations get worse</div>
+      <div className="rot-flow-h">
+        {stages.map((stage, si) => (
+          <Motion.div
+            key={stage.label}
+            className="rot-stage-h"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 + si * 0.35 }}
+          >
+            <div className="rot-stage-label-h">{stage.label}</div>
+            <div className="rot-slots-h">
+              {stage.slots.map((slot, i) => (
+                <div
+                  key={`${stage.label}-${i}`}
+                  className={`rot-slot ${slot.type}`}
+                  style={slot.span ? { flex: slot.span } : undefined}
+                >
+                  {slot.label}
+                </div>
+              ))}
+            </div>
+            <div className="rot-note-h" style={{ color: stage.noteColor }}>
+              {stage.note}
+            </div>
+          </Motion.div>
+        )).reduce((acc, el, i) => {
+          if (i > 0) {
+            acc.push(
+              <Motion.div
+                key={`arrow-${i}`}
+                className="rot-arrow-h"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 + i * 0.35 }}
+              >
+                →
+              </Motion.div>
+            );
+          }
+          acc.push(el);
+          return acc;
+        }, [])}
+      </div>
+      <Motion.div
+        className="rot-tips-h"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+      >
+        <div className="rot-tips-label">HOW TO MANAGE THIS</div>
+        <div className="rot-tip-item">🆕 Start a new chat when switching topics</div>
+        <div className="rot-tip-item">📋 For complex tasks, have Claude create a plan file first — then execute from the plan</div>
+        <div className="rot-tip-item">⚙️ Put things you always want Claude to do in the settings file (Claude.md) — it loads every time</div>
+      </Motion.div>
+    </div>
+  );
+}
+
+function InfographicSlide({ slide }) {
+  const visualMap = {
+    "content-rot": ContentRotVisual,
+  };
+  const VisualComponent = visualMap[slide.visual] || null;
+
+  return (
+    <SlideFrame className="infographic-layout">
+      {VisualComponent ? <VisualComponent /> : null}
+    </SlideFrame>
+  );
+}
+
 function VisualStatementSlide({ slide }) {
+  const visualMap = {
+    "vector-space": VectorSpaceVisual,
+    "skill-gauge": SkillGaugeVisual,
+    "competitive-edge": CompetitiveEdgeVisual,
+    "work-joy": WorkJoyVisual,
+    "fundamentals-flow": FundamentalsFlowVisual,
+    "time-save": TimeSaveVisual,
+    "context-window-simple": ContextWindowSimpleVisual,
+    "terminal-mock": TerminalMockVisual,
+    "content-rot": ContentRotVisual,
+  };
+  const VisualComponent = visualMap[slide.visual] || null;
+
   return (
     <SlideFrame className="visual-statement-layout">
       <div className="visual-statement-text">
@@ -235,12 +790,38 @@ function VisualStatementSlide({ slide }) {
         <Motion.h1 className="statement-headline" {...reveal(0.16)}>
           {slide.headline}
         </Motion.h1>
-        <Motion.p className="statement-body" {...reveal(0.3)}>
-          {slide.body}
-        </Motion.p>
+        {slide.body ? (
+          <Motion.p className="statement-body" {...reveal(0.3)}>
+            {slide.body}
+          </Motion.p>
+        ) : null}
+        {slide.cards ? (
+          <div className="visual-statement-cards">
+            {slide.cards.map((card, i) => (
+              <Motion.div
+                key={card.title}
+                className="vs-card"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.12 }}
+              >
+                <span className="vs-card-icon">{card.icon}</span>
+                <div>
+                  <div className="vs-card-title">{card.title}</div>
+                  <div className="vs-card-body">{card.body}</div>
+                </div>
+              </Motion.div>
+            ))}
+          </div>
+        ) : null}
+        {slide.subtext ? (
+          <Motion.p className="vs-subtext" {...reveal(0.5)}>
+            {slide.subtext}
+          </Motion.p>
+        ) : null}
       </div>
       <Motion.div className="visual-statement-graphic" {...reveal(0.2)}>
-        {slide.visual === "vector-space" ? <VectorSpaceVisual /> : null}
+        {VisualComponent ? <VisualComponent /> : null}
       </Motion.div>
     </SlideFrame>
   );
@@ -387,6 +968,14 @@ function ProductShowcaseSlide({ slide }) {
             ) : null}
           </Motion.div>
         ) : null}
+        {slide.limitations ? (
+          <Motion.div className="showcase-limits" {...reveal(0.45)}>
+            <div className="showcase-limits-label">LIMITATIONS</div>
+            {slide.limitations.map((item, i) => (
+              <div key={`lim-${i}`} className="showcase-limits-item">{item}</div>
+            ))}
+          </Motion.div>
+        ) : null}
       </div>
       <Motion.div className="showcase-visual" {...reveal(0.15)}>
         {slide.mockType === "chat" ? (
@@ -457,6 +1046,31 @@ function AudiencePollSlide({ slide }) {
       {slide.followUp ? (
         <Motion.p className="poll-followup" {...reveal(0.5)}>
           {slide.followUp}
+        </Motion.p>
+      ) : null}
+    </SlideFrame>
+  );
+}
+
+function VideoSlide({ slide }) {
+  return (
+    <SlideFrame className="video-layout">
+      {slide.tag ? <Tag text={slide.tag} /> : null}
+      <Motion.h2 className="video-headline" {...reveal(0.1)}>
+        {slide.headline}
+      </Motion.h2>
+      <Motion.div className="video-embed" {...reveal(0.2)}>
+        <iframe
+          src={slide.embedUrl}
+          title={slide.headline}
+          allowFullScreen
+          allow="autoplay; encrypted-media"
+          style={{ border: "none", width: "100%", height: "100%" }}
+        />
+      </Motion.div>
+      {slide.caption ? (
+        <Motion.p className="video-caption" {...reveal(0.4)}>
+          {slide.caption}
         </Motion.p>
       ) : null}
     </SlideFrame>
@@ -1043,6 +1657,48 @@ function HomeworkSlide({ slide }) {
   );
 }
 
+function TableSlide({ slide }) {
+  return (
+    <SlideFrame className="table-layout">
+      <Tag text={slide.tag} />
+      <Motion.h2 className="table-headline" {...reveal(0.1)}>
+        {slide.headline}
+      </Motion.h2>
+      <Motion.div className="table-wrapper" {...reveal(0.2)}>
+        <table className="slide-table">
+          <thead>
+            <tr>
+              {slide.columns.map((col) => (
+                <th key={col}>{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {slide.rows.map((row, i) => (
+              <Motion.tr
+                key={row.dept}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+              >
+                <td className="table-dept">{row.dept}</td>
+                <td>{row.chat}</td>
+                <td>{row.cowork}</td>
+                <td className="table-muted">{row.code}</td>
+              </Motion.tr>
+            ))}
+          </tbody>
+        </table>
+      </Motion.div>
+      {slide.footnote ? (
+        <Motion.p className="table-footnote" {...reveal(0.6)}>
+          {slide.footnote}
+        </Motion.p>
+      ) : null}
+    </SlideFrame>
+  );
+}
+
 function EndSlide({ slide }) {
   return (
     <SlideFrame className="end-layout">
@@ -1063,10 +1719,14 @@ export default function SlideRenderer({ slide, printVariant }) {
       return <StatementSlide slide={slide} />;
     case "visual-statement":
       return <VisualStatementSlide slide={slide} />;
+    case "infographic":
+      return <InfographicSlide slide={slide} />;
     case "roles-contrast":
       return <RolesContrastSlide slide={slide} />;
     case "audience-poll":
       return <AudiencePollSlide slide={slide} />;
+    case "video":
+      return <VideoSlide slide={slide} />;
     case "product-showcase":
       return <ProductShowcaseSlide slide={slide} />;
     case "cards":
@@ -1093,6 +1753,8 @@ export default function SlideRenderer({ slide, printVariant }) {
       return <TipsSlide slide={slide} activeIndex={printVariant?.activeTipIndex} />;
     case "setup":
       return <SetupSlide slide={slide} activeStep={printVariant?.activeStepIndex} />;
+    case "table":
+      return <TableSlide slide={slide} />;
     case "homework":
       return <HomeworkSlide slide={slide} />;
     case "end":

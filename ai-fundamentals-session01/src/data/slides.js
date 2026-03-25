@@ -14,15 +14,46 @@ export const slides = [
     sessionText: "SESSION 01 — AI FUNDAMENTALS",
   },
   {
-    id: 2,
-    type: "audience-poll",
-    tag: "QUICK PULSE CHECK",
-    question: "Raise your hand if you've used ChatGPT or Claude this week.",
-    followUp:
-      "Keep it up if you used it for actual work — not just asking what's for dinner.",
+    id: 1.05,
+    type: "centered",
+    headline: "Goals for this program.",
+    subtitle: null,
+    footer: "UNICITY · AI ACADEMY · SESSION 01",
   },
   {
-    id: 3,
+    id: 1.1,
+    type: "visual-statement",
+    visual: "skill-gauge",
+    tag: "WHY WE'RE HERE",
+    headline: "Use AI better.",
+    body: "We know most of you are already using AI. This program isn't about starting from zero — it's about creating structure so you use it more effectively, more safely, and get more useful and productive results.",
+  },
+  {
+    id: 1.2,
+    type: "video",
+    tag: "WHY WE'RE HERE",
+    headline: "The world is changing fast.",
+    embedUrl: "https://platform.twitter.com/embed/Tweet.html?id=2017321919364686301&theme=dark",
+    caption: null,
+  },
+  {
+    id: 1.25,
+    type: "visual-statement",
+    visual: "competitive-edge",
+    tag: "WHY WE'RE HERE",
+    headline: "Stay competitive.",
+    body: "The companies that leverage AI well will outpace those that don't. This is about Unicity staying ahead by making sure every team is equipped with the latest tools and knows how to use them. AI fluency isn't optional anymore — it's a competitive advantage.",
+  },
+  {
+    id: 1.3,
+    type: "visual-statement",
+    visual: "work-joy",
+    tag: "WHY WE'RE HERE",
+    headline: "Enjoy your work more.",
+    body: "Research shows that learning AI effectively makes careers more enjoyable. It reduces mundane tasks, boosts creativity, and acts as a rewarding partner that keeps you engaged in the work that actually matters. Less busywork, more impact.",
+  },
+  {
+    id: 2,
     type: "agenda",
     tag: "40 MIN PRESENTATION · 20 MIN Q&A",
     headline: "What we're covering.",
@@ -33,6 +64,14 @@ export const slides = [
       { title: "Context windows explained", color: "#8E76FF" },
       { title: "Safe use, Unicity policy & homework", color: "#31E3A5" },
     ],
+  },
+  {
+    id: 3,
+    type: "audience-poll",
+    tag: "QUICK PULSE CHECK",
+    question: "Raise your hand if you've used ChatGPT or Claude this week.",
+    followUp:
+      "Keep it up if you used it for actual work — not just asking what's for dinner.",
   },
 
   // ─── SECTION B: THE AI LANDSCAPE (4-6) ───
@@ -54,7 +93,7 @@ export const slides = [
         letter: "C",
         name: "Claude (Anthropic)",
         description:
-          "Built with a focus on safety, helpfulness, and long-form reasoning. Strong at writing, analysis, following complex instructions, and working with large documents.",
+          "Built with a focus on safety, helpfulness, and long-form reasoning. Strong at writing, analysis, following complex instructions, and working with large documents. Inventor of MCP (Model Context Protocol) and Skills — letting AI connect to your tools and learn reusable workflows.",
         example:
           "Best for: detailed writing, document analysis, multi-step reasoning, nuanced business tasks. Unicity's primary AI tool.",
       },
@@ -80,9 +119,9 @@ export const slides = [
     id: 6,
     type: "audience-poll",
     tag: "SHOW OF HANDS",
-    question: "Which one is your go-to?",
+    question: "Which one do you use the most?",
     followUp:
-      "Raise your hand for ChatGPT... now Claude... now Gemini... now raise your hand if you've never tried Claude.",
+      "Type it in the chat — I want to see it. ChatGPT? Claude? Gemini? Something else?",
   },
 
   // ─── SECTION C: CLAUDE PRODUCTS OVERVIEW (7) ───
@@ -98,15 +137,15 @@ export const slides = [
         description:
           "The conversational interface. Type a question or task, get an answer. Good for one-off requests: drafting, summarizing, brainstorming, analyzing data, writing copy.",
         example:
-          "Marketing: rewrite a landing page headline. Sales: summarize a 40-page agreement. CS: draft an escalation response. Creative: write 5 variations of ad copy for A/B testing.",
+          "Marketing: rewrite a landing page headline. Sales: create distributor training materials. CS: draft an escalation response. Creative: write 5 variations of ad copy for A/B testing.",
       },
       {
         letter: "Co",
         name: "Claude Cowork",
         description:
-          "Claude with agency. It can browse the web, read files on your desktop, use your apps, and work across tools. Think of it as an AI assistant that can actually do things, not just talk about them.",
+          "Claude with agency. It can work on entire folders, read all the files inside, and use them as context for your project. It connects to advanced tools through MCP (Model Context Protocol) — like Slack, Google Drive, and ClickUp. It can also create multiple files and documents in one workflow.",
         example:
-          "Marketing: research competitors and build a comparison matrix. Sales: pull quarterly data and draft a QBR deck. CS: read 20 tickets and categorize top issues. Creative: research design trends and compile a mood board with references.",
+          "Marketing: research competitors and build a full comparison doc. Sales: analyze distributor performance data and build success playbooks. CS: analyze a folder of ticket exports. Creative: read your brand assets folder and generate on-brand content.",
       },
       {
         letter: "CC",
@@ -120,64 +159,71 @@ export const slides = [
     footnote: "Download Claude Desktop → claude.ai/download",
   },
 
-  // ─── SECTION D: HOW TO USE AI — CRAFT (8-12) ───
+  // ─── SECTION D: HOW TO USE AI — CRAFT + CONTEXT ───
+  {
+    id: 7.91,
+    type: "visual-statement",
+    visual: "fundamentals-flow",
+    tag: "AI FUNDAMENTALS",
+    headline: "2 important skills that help you become an effective AI Pilot.",
+    body: null,
+    cards: [
+      {
+        icon: "✍️",
+        title: "Prompting",
+        body: "How you talk to AI determines what you get back.",
+      },
+      {
+        icon: "🧠",
+        title: "Context Window",
+        body: "What the AI can \"see\" when it generates a response.",
+      },
+    ],
+    subtext: "Master these 2 and you'll be unstoppable.",
+  },
   {
     id: 8,
     type: "statement",
-    tag: "THE CORE SKILL",
-    headline: "The prompt is the product.",
-    body: "Before we go deep into each tool — let's learn how to actually talk to AI. Every AI tool runs on the same principle: garbage in, garbage out. The difference between a useless AI response and a brilliant one is almost always the prompt. CRAFT is a simple 5-part framework that makes every prompt better.",
+    tag: "SKILLSET 01 · PROMPTING",
+    headline: "The Art of Prompting.",
+    body: "Prompting is the skill of <em>properly articulating your problem and desired outcome to AI</em>. The clearer you are about what you need, the context behind it, and how you want the answer — the better the result.",
   },
   {
     id: 9,
     type: "cards",
-    tag: "THE CRAFT FRAMEWORK",
-    headline: "CRAFT your prompt.",
+    tag: "BEFORE YOU HIT ENTER",
+    headline: "Before you hit enter, ask yourself 3 questions.",
     cards: [
       {
-        letter: "C",
-        name: "Context",
-        description: "What background does the AI need?",
+        letter: "1",
+        name: "Did I set the identity and context?",
+        description: "Tell AI who it should be and what it needs to know. A senior strategist writes differently than a general assistant.",
         example:
-          "We're launching a new product line in Southeast Asia next quarter. Our target audience is health-conscious millennials aged 25-35.",
+          "\"You are a senior marketing strategist at Unicity. We're launching Unimate in Thailand next quarter. Our audience is health-conscious millennials aged 25-35.\"",
       },
       {
-        letter: "R",
-        name: "Role",
-        description: "Who should the AI act as?",
+        letter: "2",
+        name: "Did I explain the problem?",
+        description: "Articulate the situation clearly. Give AI the background it needs to understand what you're dealing with.",
         example:
-          "You are a senior marketing strategist with 10 years of experience in health & wellness brands in APAC markets.",
+          "\"We're losing market share to Brand X on price. Our current messaging focuses on ingredients but doesn't connect emotionally with the Thai market.\"",
       },
       {
-        letter: "A",
-        name: "Action",
-        description: "What specific task needs to be done?",
+        letter: "3",
+        name: "Did I state my desired outcome?",
+        description: "Be specific about what you want to walk away with. Vague asks get vague results.",
         example:
-          "Create a launch campaign brief with 3 messaging angles, each targeting a different pain point.",
-      },
-      {
-        letter: "F",
-        name: "Format",
-        description: "How should the output look?",
-        example:
-          "Use a table with columns: Angle Name, Pain Point, Key Message, Suggested Channel. Keep each row under 50 words.",
-      },
-      {
-        letter: "T",
-        name: "Tone",
-        description: "How should it sound?",
-        example:
-          "Professional but approachable. Think brand voice, not corporate memo. Avoid jargon — this goes to regional distributors.",
+          "\"I need a campaign brief with 3 messaging angles that each address a different customer pain point. This is for our regional marketing team to execute.\"",
       },
     ],
   },
   {
     id: 10,
     type: "comparison",
-    tag: "CRAFT IN ACTION",
+    tag: "IN ACTION",
     headline: "Same task. Different prompt.",
     task: "Write a customer email about a shipping delay.",
-    leftTitle: "WHAT MOST PEOPLE TYPE",
+    leftTitle: "NO IDENTITY · NO PROBLEM · NO OUTCOME",
     leftPrompt:
       "Write an email to a customer about their shipping delay.",
     leftOutput: [
@@ -185,37 +231,49 @@ export const slides = [
       "",
       "Dear Customer,",
       "",
-      "We are writing to inform you that your order has been delayed. We apologize for the inconvenience and are working to resolve this as soon as possible.",
+      "We are writing to inform you that your order has",
+      "been delayed. We apologize for the inconvenience",
+      "and are working to resolve this as soon as possible.",
       "",
       "Thank you for your patience.",
     ],
     leftVerdict:
       "Generic. Could be from any company. No specifics. Customer feels like a number.",
-    rightTitle: "THE CRAFT VERSION",
+    rightTitle: "IDENTITY + PROBLEM + OUTCOME",
     rightPrompt: [
-      "You are a Unicity customer care specialist writing to a VIP distributor.",
+      "① IDENTITY: You are a Unicity customer care specialist writing to a VIP distributor.",
       "",
-      "Context: Order #UNI-38291 is delayed 5 days due to customs clearance in Thailand. Expected delivery is now March 30.",
+      "② PROBLEM: Order #UNI-38291 is delayed 5 days due to customs clearance in Thailand. Expected delivery is now March 30.",
       "",
-      "Write a personal apology email. Include the new delivery date, a direct contact number, and offer a 10% credit on their next order. Tone: warm, empathetic, solution-focused. Under 150 words.",
+      "③ OUTCOME: Write a personal apology email. Include the new delivery date, a direct contact number, and offer a 10% credit on their next order. Tone: warm, empathetic, solution-focused. Under 150 words.",
     ],
     rightOutput: [
       "Subject: Update on Your Order #UNI-38291",
       "",
       "Hi Sarah,",
       "",
-      "I wanted to personally reach out about your recent order. It's currently held in customs clearance in Thailand, and we now expect delivery by March 30.",
+      "I wanted to personally reach out about your recent",
+      "order. It's currently in customs clearance in Thailand,",
+      "and we now expect delivery by March 30.",
       "",
-      "I know that's not what you were hoping to hear, and I'm sorry for the delay. To make this right, I've applied a 10% credit to your next order — it'll be there automatically.",
+      "I'm sorry for the delay. To make this right, I've",
+      "applied a 10% credit to your next order — it'll",
+      "be there automatically.",
       "",
-      "If you have any questions, you can reach me directly at +1-801-555-0142.",
-      "",
-      "Thank you for being a valued partner.",
+      "Questions? Reach me directly at +1-801-555-0142.",
       "",
       "Warm regards, Alex",
     ],
     rightVerdict:
-      "Personal. Specific. Solution-oriented. Customer feels valued.",
+      "Personal. Specific. Solution-oriented. Customer feels valued. Ready to send.",
+  },
+  {
+    id: 10.8,
+    type: "visual-statement",
+    visual: "time-save",
+    tag: "THE REAL TIME SAVER",
+    headline: "Slow down to speed up.",
+    body: "Spending 2 extra minutes thinking about your prompt saves you 20 minutes of back-and-forth asking AI to redo things you forgot to mention. The best AI users don't type faster — they think before they type.",
   },
   {
     id: 11,
@@ -223,60 +281,9 @@ export const slides = [
     tag: "BE HONEST",
     question: "Raise your hand if your typical AI prompt is one sentence.",
     followUp:
-      "After seeing CRAFT — who's going to try a longer prompt today?",
+      "After seeing that — who's going to try a longer prompt today?",
   },
-  {
-    id: 12,
-    type: "tips",
-    tag: "PROMPTING QUICK WINS",
-    headline: "Three habits that change everything.",
-    tips: [
-      {
-        key: "01",
-        title: "Start with \"You are a...\"",
-        body: "Giving the AI a role is the single biggest quality improvement you can make. A \"senior marketing strategist\" writes differently than a \"general assistant.\" Try it: add a role to your next prompt and compare the output.",
-        visualType: "code",
-        codeLines: [
-          "You are a senior marketing strategist",
-          "with 10 years of APAC experience.",
-          "",
-          "You are a Unicity customer care lead",
-          "who specializes in distributor relations.",
-          "",
-          "You are a supply chain analyst",
-          "preparing a report for the COO.",
-        ],
-      },
-      {
-        key: "02",
-        title: "Specify the format upfront",
-        body: "Don't let the AI guess how you want the output. Say \"bullet points,\" \"table with these columns,\" \"under 200 words,\" or \"email format.\" This eliminates 80% of the back-and-forth where you ask it to reformat.",
-        visualType: "comparison",
-        leftTitle: "VAGUE",
-        leftItems: ["Write a summary", "Make it good", "Not too long"],
-        rightTitle: "SPECIFIC",
-        rightItems: ["3 bullet points", "Under 100 words", "Table with 4 columns"],
-      },
-      {
-        key: "03",
-        title: "Iterate, don't restart",
-        body: "If the first output isn't right, don't start over. Tell the AI what to fix: \"Make it shorter,\" \"Add more data,\" \"Change the tone to be more formal.\" Each follow-up builds on the context. Restarting throws away everything the AI learned about your task.",
-        visualType: "code",
-        codeLines: [
-          "Good follow-ups:",
-          "  \"Make the tone more formal\"",
-          "  \"Add a comparison to last quarter\"",
-          "  \"Shorten to 100 words\"",
-          "  \"Now convert this to a table\"",
-          "",
-          "Bad habit:",
-          "  Starting a brand new chat every time",
-        ],
-      },
-    ],
-  },
-
-  // ─── SECTION E: CONTEXT WINDOWS (13-14) ───
+  // ─── SECTION E: CONTEXT WINDOWS ───
   {
     id: 13,
     type: "audience-poll",
@@ -287,56 +294,88 @@ export const slides = [
   {
     id: 14,
     type: "context-flow",
-    tag: "HOW AI SEES YOUR CONVERSATION",
-    headline: "The context window, explained.",
+    tag: "SKILLSET 02 · CONTEXT WINDOW",
+    headline: "The context window.",
     leftDescription:
-      "Every time you talk to an AI, it can only \"see\" a limited amount of information at once. This is called the context window. Think of it as the AI's desk — everything it needs to work with has to fit on that desk. If the desk is cluttered, the important things get lost. If it's organized with exactly what's needed, the AI performs brilliantly.",
+      "When you send a prompt, the AI loads everything it can \"see\" into one window. Think of it as a desk — everything has to fit.",
     global: {
-      levelLabel: "SYSTEM INSTRUCTIONS",
-      path: "Set by Claude / your admin",
-      claudeTitle: "BUILT-IN RULES",
-      claudeText:
-        "Safety guidelines, helpfulness rules, and behavioral instructions that are always present. You don't see these, but they take up space on the desk.",
-      skillsTitle: "YOUR SETTINGS",
-      skillTags: ["Language", "Tone prefs", "Safety"],
-      skillsText:
-        "Any preferences you or your admin have configured. These load automatically.",
+      levelLabel: "YOUR PROMPT",
+      path: "This triggers everything below",
+      claudeTitle: "WHAT YOU TYPED",
+      claudeText: "Your message is the starting point.",
+      skillsTitle: "ATTACHED FILES",
+      skillTags: ["PDFs", "Docs", "Data"],
+      skillsText: "Documents you've uploaded with your prompt.",
     },
     projects: [
       {
-        boxLabel: "Your Messages",
-        path: "Everything you've typed",
-        claudeTitle: "YOUR PROMPTS",
-        claudeText:
-          "Every message you've sent in this conversation. Each one takes up space. Long conversations fill the desk faster.",
-        skillsTitle: "ATTACHED FILES",
-        skillTags: ["PDFs", "Spreadsheets", "Docs"],
-        skillsText:
-          "Documents you've uploaded or pasted. Powerful but take significant space. Upload only what's relevant.",
+        boxLabel: "Chat History",
+        path: "Previous messages in this conversation",
+        claudeTitle: "YOUR MESSAGES",
+        claudeText: "Every message you've sent takes up space.",
+        skillsTitle: "AI RESPONSES",
+        skillTags: ["Answers", "Drafts", "Follow-ups"],
+        skillsText: "Every AI response stays in the window too.",
       },
       {
-        boxLabel: "AI Responses",
-        path: "Everything Claude has written",
-        claudeTitle: "AI OUTPUT",
-        claudeText:
-          "Every response the AI has generated also stays on the desk. Long, verbose responses eat into available space.",
-        skillsTitle: "CONVERSATION HISTORY",
-        skillTags: ["Back-and-forth", "Edits", "Follow-ups"],
-        skillsText:
-          "The full dialogue. This is why long conversations eventually lose quality — the desk gets too full.",
+        boxLabel: "Tools & Skills",
+        path: "Connected integrations & reusable workflows",
+        claudeTitle: "MCPs (TOOLS)",
+        claudeText: "Slack, Drive, ClickUp — tools AI can use.",
+        skillsTitle: "SKILLS",
+        skillTags: ["Workflows", "Templates", "Playbooks"],
+        skillsText: "Reusable instructions for specific tasks.",
       },
     ],
-    mergeLabel: "▼ EVERYTHING ABOVE = THE CONTEXT WINDOW ▼",
+    mergeLabel: "▼ ALL OF THIS = THE CONTEXT WINDOW ▼",
     mergeTitle: "THE AI'S WORKING MEMORY",
     mergeText:
-      "When the desk fills up, older content gets compressed or dropped. New topic = new chat. Upload only what's relevant. One task per prompt.",
-    plus: "+",
-    promptTitle: "YOUR LATEST MESSAGE",
+      "This memory has a limit. As it fills up, older context gets forgotten or loses detail — that's why long conversations get worse over time.",
+    plus: "↓",
+    promptTitle: "AI GENERATES A RESPONSE",
     promptText:
-      "Your most recent prompt is what the AI focuses on most. But everything above it shapes the response. A great prompt in a cluttered window still underperforms.",
+      "The quality of this response depends on everything above it.",
   },
 
-  // ─── SECTION F: DEEP DIVE — CHAT, COWORK, CODE (15-20) ───
+  {
+    id: 14.1,
+    type: "infographic",
+    visual: "content-rot",
+  },
+  // ─── SECTION F: DEEP DIVE — CHAT, COWORK, CODE ───
+  {
+    id: 14.5,
+    type: "cards",
+    tag: "NOW LET'S GO DEEPER",
+    headline: "One AI, three ways to use it.",
+    cards: [
+      {
+        letter: "Chat",
+        name: "Claude Chat",
+        description:
+          "The conversational interface. Type a question or task, get an answer. Good for one-off requests: drafting, summarizing, brainstorming, analyzing data, writing copy.",
+        example:
+          "Marketing: rewrite a landing page headline. Sales: create distributor training materials. CS: draft an escalation response. Creative: write 5 variations of ad copy for A/B testing.",
+      },
+      {
+        letter: "Co",
+        name: "Claude Cowork",
+        description:
+          "Claude with agency. It can work on entire folders, read all the files inside, and use them as context for your project. It connects to advanced tools through MCP (Model Context Protocol) — like Slack, Google Drive, and ClickUp. It can also create multiple files and documents in one workflow.",
+        example:
+          "Marketing: research competitors and build a full comparison doc. Sales: analyze distributor performance data and build success playbooks. CS: analyze a folder of ticket exports. Creative: read your brand assets folder and generate on-brand content.",
+      },
+      {
+        letter: "CC",
+        name: "Claude Code",
+        description:
+          "The command-line power tool for developers. Full access to your codebase, terminal, and file system. Built for engineers and technical builders.",
+        example:
+          "For advanced users: scaffold apps, debug code, refactor modules, build automations. If you're not in a terminal daily, Chat and Cowork have you covered.",
+      },
+    ],
+    footnote: "Download Claude Desktop → claude.ai/download",
+  },
   {
     id: 15,
     type: "product-showcase",
@@ -346,9 +385,14 @@ export const slides = [
     description:
       "Type a question or task, get an answer. Paste in text and tell Claude what you need. It's like texting a brilliant colleague who never sleeps, never judges, and always has time.",
     stat: {
-      number: "80%",
-      label: "of AI users never go beyond basic chat. That's fine as a starting point — but the real productivity gains are in the next level.",
+      number: "Most",
+      label: "AI users never go beyond basic chat. That's fine as a starting point — but the real productivity gains are in the next level.",
     },
+    limitations: [
+      "Can't read files on your computer — you have to paste or upload content",
+      "Can't take actions in other tools (no Slack, no Drive, no ClickUp)",
+      "Can't work on multi-step tasks autonomously — you drive every step",
+    ],
     tryThis: [
       {
         dept: "Marketing",
@@ -360,8 +404,8 @@ export const slides = [
       {
         dept: "Sales",
         items: [
-          "Paste a long Slack thread from a deal discussion and ask Claude to extract the key decisions, objections raised, and next steps — instant deal summary.",
-          "Give Claude your best-performing proposal and ask it to identify what makes it work, then rewrite your weakest proposal using the same patterns.",
+          "Paste a distributor's monthly performance data and ask Claude to identify what's holding them back and suggest 3 specific actions to help them grow.",
+          "Ask Claude to turn your best distributor success story into a reusable training template that other distributors can follow step by step.",
         ],
       },
       {
@@ -409,8 +453,8 @@ export const slides = [
       {
         dept: "Sales",
         items: [
-          "Upload a vendor contract and your current agreement to a Project. Ask Cowork to compare them side by side and flag every clause that changed, got worse, or is missing.",
-          "Ask Cowork to read your last 5 sent proposals, identify what the winning ones had in common, and rewrite the intro of your next proposal using those patterns.",
+          "Upload your top 10 distributors' performance data to a Project. Ask Cowork to find the patterns — what do successful distributors do differently? — and build a playbook from it.",
+          "Ask Cowork to analyze a struggling distributor's activity, compare it to your top performers, and draft a personalized coaching plan with specific next steps.",
         ],
       },
       {
@@ -439,77 +483,112 @@ export const slides = [
     ],
   },
   {
-    id: 17,
-    type: "statement",
-    tag: "CLAUDE CODE · FOR ADVANCED USERS",
-    headline: "Claude Code.",
-    body: "Claude Code lives in your terminal and has full access to your codebase, file system, and developer tools. It can write code, run tests, create pull requests, and build entire features. If you're an engineer or technical builder, this is the most powerful AI coding tool available. For everyone else — Chat and Cowork have you completely covered.",
-  },
-  {
-    id: 18,
+    id: 16.5,
     type: "centered",
     headline: "Live Demo",
     subtitle: "Let's see it in action.",
     footer: "UNICITY · AI ACADEMY · SESSION 01",
   },
   {
-    id: 19,
-    type: "call-to-action",
-    headline: "When to use which.",
-    cards: [
-      {
-        icon: "💬",
-        title: "Use Chat when...",
-        body: "You need a quick answer, want to brainstorm, need to draft something, or want to analyze text you can paste in. Think of it as talking to a smart colleague.",
-      },
-      {
-        icon: "🤖",
-        title: "Use Cowork when...",
-        body: "You need Claude to work across multiple tools or files, do multi-step research, or handle a workflow that would take you 30+ minutes manually. Think of it as delegating to an assistant.",
-      },
-      {
-        icon: "💻",
-        title: "Use Code when...",
-        body: "You're writing code, building automations, or working in a terminal. This is for technical users and developers. If that's not you, you don't need this.",
-      },
-    ],
-    footnote:
-      "Start with Chat. Graduate to Cowork. Code is extra credit.",
+    id: 17,
+    type: "visual-statement",
+    visual: "terminal-mock",
+    tag: "CLAUDE CODE · FOR ADVANCED USERS",
+    headline: "Claude Code.",
+    body: "Claude Code lives in your terminal and has full access to your codebase, file system, and developer tools. It can write code, run tests, create pull requests, and build entire features. For everyone else — Chat and Cowork have you completely covered.",
   },
   {
-    id: 20,
-    type: "audience-poll",
-    tag: "HOW ARE YOU USING AI TODAY?",
-    question: "Raise your hand if you mostly just type a question and get an answer.",
-    followUp:
-      "Now raise your hand if you've ever uploaded a document or had AI work across multiple tools.",
+    id: 19,
+    type: "table",
+    tag: "WHEN TO USE WHICH",
+    headline: "Use cases by department.",
+    columns: ["", "Chat", "Cowork", "Code"],
+    rows: [
+      {
+        dept: "Marketing",
+        chat: "Rewrite copy, brainstorm campaigns, generate subject lines",
+        cowork: "Competitor research across sites, build comparison docs, multi-asset content from one brief",
+        code: "—",
+      },
+      {
+        dept: "Sales",
+        chat: "Create training materials, draft distributor communications, build coaching scripts",
+        cowork: "Analyze distributor performance data, build success playbooks, generate personalized coaching plans",
+        code: "—",
+      },
+      {
+        dept: "CS",
+        chat: "Draft responses, rewrite canned replies, create FAQs",
+        cowork: "Categorize ticket exports, audit help center articles, analyze complaint trends",
+        code: "—",
+      },
+      {
+        dept: "Creative",
+        chat: "Ad copy variations, social captions, brand voice rewrites",
+        cowork: "Instagram trend research, multi-platform content from one photo, mood board from references",
+        code: "—",
+      },
+    ],
+    footnote: "Start with Chat. Graduate to Cowork. Code is for developers.",
   },
 
-  // ─── SECTION G: SAFE USE & WRAP-UP (21-24) ───
+  // ─── SECTION G: RECAP, SAFE USE & WRAP-UP ───
+  {
+    id: 21.5,
+    type: "cards",
+    tag: "WHAT YOU LEARNED TODAY",
+    headline: "Quick recap.",
+    cards: [
+      {
+        letter: "1",
+        name: "3 LLMs",
+        description: "Claude, ChatGPT, Gemini — different strengths, same core skill to use them.",
+        example: "Unicity's primary tool is Claude.",
+      },
+      {
+        letter: "2",
+        name: "3 Ways to Use Claude",
+        description: "Chat for quick tasks. Cowork for multi-step workflows with files and tools. Code for developers.",
+        example: "Start with Chat. Graduate to Cowork.",
+      },
+      {
+        letter: "3",
+        name: "Prompting",
+        description: "Identity → Problem → Desired Outcome. Spend 2 minutes thinking, save 20 minutes redoing.",
+        example: "The quality of your ask = the quality of your answer.",
+      },
+      {
+        letter: "4",
+        name: "Context Window",
+        description: "AI has a memory limit. Long conversations get worse. New topic = new chat.",
+        example: "Use plan files and Claude.md to keep important context persistent.",
+      },
+    ],
+  },
   {
     id: 21,
     type: "roles-contrast",
     variant: "do-dont",
-    headline: "The Golden Rules",
+    headline: "Unicity AI Policy",
     left: {
       title: "ALWAYS DO",
       bullets: [
-        "Use your corporate Unicity account for all work",
-        "Fact-check AI output against primary sources",
-        "Get brand review before publishing AI-generated content",
-        "Report incidents or concerns to IT (support@unicity.com)",
-        "Get written consent + Legal approval for voice cloning",
+        "Use your corporate Unicity account — personal accounts have zero privacy protections",
+        "Only use IT-approved AI tools — unapproved tools (shadow AI) are our #1 risk",
+        "Fact-check AI output before sending — AI can hallucinate facts that damage distributor relationships",
+        "Get brand review before publishing any AI-generated content externally",
+        "Report mistakes or concerns to IT immediately (support@unicity.com) — no penalty for honest reporting",
       ],
     },
     right: {
       title: "NEVER DO",
       bullets: [
-        "Paste PII (names, addresses, SSNs, phone numbers)",
-        "Paste credentials, passwords, or API keys",
-        "Paste payment data or financial account info",
-        "Paste unreleased financial results or forecasts",
-        "Paste NDA-covered or confidential partner data",
-        "Use personal accounts for Unicity work",
+        "Paste distributor names, commissions, or volume data into personal or unapproved AI tools",
+        "Paste customer or employee PII (names, addresses, phone numbers, SSNs)",
+        "Paste credentials, passwords, API keys, or payment data",
+        "Paste unreleased financial results, forecasts, or NDA-covered partner data",
+        "Upload customer or distributor photos/videos without confirming vendor data agreement",
+        "Clone anyone's voice without written consent + Legal approval",
       ],
     },
     takeaway:
@@ -525,10 +604,10 @@ export const slides = [
       "These tasks prepare you for hands-on, role-specific training. Come ready to share.",
     items: [
       "Sign into your corporate Claude account at claude.ai — confirm you can access it",
-      "Write 3 CRAFT prompts relevant to your daily work — save the prompts AND the outputs",
+      "Pick a real problem you're working on right now. Write a prompt using Identity → Problem → Desired Outcome. Save the prompt AND the output.",
       "Identify one repetitive task in your role that AI could help with — bring it to Session 02",
       "Try Claude Cowork — give it a multi-step task like researching a topic and summarizing findings into a doc",
-      "Come ready to share: your best prompt and what made it work",
+      "Come ready to share: what you tried, what worked, and what didn't",
     ],
   },
   {

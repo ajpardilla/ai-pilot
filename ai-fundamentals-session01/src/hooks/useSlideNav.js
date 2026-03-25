@@ -1,21 +1,43 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+function getInitialSlide(totalSlides) {
+  const params = new URLSearchParams(window.location.search);
+  const slide = parseInt(params.get("slide"), 10);
+  if (!Number.isNaN(slide) && slide >= 1 && slide <= totalSlides) {
+    return slide - 1;
+  }
+  return 0;
+}
+
+function updateURL(index) {
+  const slideNum = index + 1;
+  const url = new URL(window.location);
+  url.searchParams.set("slide", slideNum);
+  window.history.replaceState(null, "", url);
+}
+
 export function useSlideNav(totalSlides) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    getInitialSlide(totalSlides)
+  );
   const touchStartX = useRef(null);
 
   const goTo = useCallback(
     (nextIndex) => {
-      setCurrentIndex(Math.max(0, Math.min(totalSlides - 1, nextIndex)));
+      const clamped = Math.max(0, Math.min(totalSlides - 1, nextIndex));
+      setCurrentIndex(clamped);
+      updateURL(clamped);
     },
     [totalSlides]
   );
 
   const go = useCallback(
     (delta) => {
-      setCurrentIndex((previous) =>
-        Math.max(0, Math.min(totalSlides - 1, previous + delta))
-      );
+      setCurrentIndex((previous) => {
+        const next = Math.max(0, Math.min(totalSlides - 1, previous + delta));
+        updateURL(next);
+        return next;
+      });
     },
     [totalSlides]
   );
