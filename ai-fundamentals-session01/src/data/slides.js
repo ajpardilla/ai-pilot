@@ -81,7 +81,7 @@ export const slides = [
     visual: "vector-space",
     tag: "LLMs FOR HUMANS",
     headline: "What is an LLM, really?",
-    body: "LLM stands for Large Language Model. Think of it as the world's most advanced pattern-matcher — it's read billions of documents and learned how language works. When you type a prompt, it predicts the most helpful response based on those patterns. It doesn't \"think\" — it pattern-matches. That's why <em>what you type in matters so much</em>. Better input = better patterns matched = better output.",
+    body: "LLM stands for Large Language Model. Think of it as the world's most advanced pattern-matcher — it's read billions of documents and learned how language works. When you type a prompt, it predicts the most helpful response based on those patterns. It doesn't \"think\" — it pattern-matches. That's why what you type in matters so much. Better input = better patterns matched = better output.",
   },
   {
     id: 5,
@@ -186,7 +186,7 @@ export const slides = [
     type: "statement",
     tag: "SKILLSET 01 · PROMPTING",
     headline: "The Art of Prompting.",
-    body: "Prompting is the skill of <em>properly articulating your problem and desired outcome to AI</em>. The clearer you are about what you need, the context behind it, and how you want the answer — the better the result.",
+    body: "Prompting is the skill of properly articulating your problem and desired outcome to AI. The clearer you are about what you need, the context behind it, and how you want the answer — the better the result.",
   },
   {
     id: 9,
