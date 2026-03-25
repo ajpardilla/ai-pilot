@@ -25,17 +25,25 @@ npm install
 npm run build
 cd ..
 
+echo "=== Building ai-fundamentals-v3 ==="
+cd ai-fundamentals-v3
+npm install
+npm run build
+cd ..
+
 echo "=== Assembling output ==="
 rm -rf _output
 mkdir -p _output/ai-academy-session01-wow
 mkdir -p _output/ai-fundamentals-session01
 mkdir -p _output/ai-fundamentals-v2
 mkdir -p _output/ai-fundamentals-v2.5
+mkdir -p _output/ai-fundamentals-v3
 
 cp -r ai-academy-session01-wow/dist/* _output/ai-academy-session01-wow/
 cp -r ai-fundamentals-session01/dist/* _output/ai-fundamentals-session01/
 cp -r ai-fundamentals-v2/dist/* _output/ai-fundamentals-v2/
 cp -r ai-fundamentals-v2.5/dist/* _output/ai-fundamentals-v2.5/
+cp -r ai-fundamentals-v3/dist/* _output/ai-fundamentals-v3/
 cp index.html _output/
 
 echo "=== Build complete ==="
@@ -44,3 +52,4 @@ ls -la _output/ai-academy-session01-wow/
 ls -la _output/ai-fundamentals-session01/
 ls -la _output/ai-fundamentals-v2/
 ls -la _output/ai-fundamentals-v2.5/
+ls -la _output/ai-fundamentals-v3/
