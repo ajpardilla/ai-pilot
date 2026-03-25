@@ -60,7 +60,7 @@ export const slides = [
     items: [
       { title: "The AI landscape: Claude, ChatGPT, Gemini", color: "#F3D34A" },
       { title: "Claude products: Chat, Cowork, Code", color: "#FF7B39" },
-      { title: "The CRAFT prompting framework", color: "#27D6E0" },
+      { title: "Prompting: 3 questions before you hit enter", color: "#27D6E0" },
       { title: "Context windows explained", color: "#8E76FF" },
       { title: "Safe use, Unicity policy & homework", color: "#31E3A5" },
     ],
@@ -81,7 +81,7 @@ export const slides = [
     visual: "vector-space",
     tag: "LLMs FOR HUMANS",
     headline: "What is an LLM, really?",
-    body: "LLM stands for Large Language Model. It converts words into numbers (vectors) and maps them into a giant space where similar concepts live close together. \"King\" is near \"queen.\" \"Cat\" is near \"dog.\" When you type a prompt, the AI navigates this space to predict the most helpful next words. It doesn't \"think\" — it finds patterns. That's why what you type in matters so much.",
+    body: "LLM stands for Large Language Model. Think of it as the world's most advanced pattern-matcher — it's read billions of documents and learned how language works. When you type a prompt, it predicts the most helpful response based on those patterns. It doesn't \"think\" — it pattern-matches. That's why <em>what you type in matters so much</em>. Better input = better patterns matched = better output.",
   },
   {
     id: 5,
@@ -93,7 +93,7 @@ export const slides = [
         letter: "C",
         name: "Claude (Anthropic)",
         description:
-          "Built with a focus on safety, helpfulness, and long-form reasoning. Strong at writing, analysis, following complex instructions, and working with large documents. Inventor of MCP (Model Context Protocol) and Skills — letting AI connect to your tools and learn reusable workflows.",
+          "Built with a focus on safety, helpfulness, and long-form reasoning. Strong at writing, analysis, following complex instructions, and working with large documents. Pioneer of MCP (Model Context Protocol) — an open standard for connecting AI to your tools and workflows.",
         example:
           "Best for: detailed writing, document analysis, multi-step reasoning, nuanced business tasks. Unicity's primary AI tool.",
       },
@@ -143,7 +143,7 @@ export const slides = [
         letter: "Co",
         name: "Claude Cowork",
         description:
-          "Claude with agency. It can work on entire folders, read all the files inside, and use them as context for your project. It connects to advanced tools through MCP (Model Context Protocol) — like Slack, Google Drive, and ClickUp. It can also create multiple files and documents in one workflow.",
+          "Claude with agency. Upload files to a Project and Claude remembers them across conversations — PDFs, docs, spreadsheets, images. It can also connect to your work tools through integrations (like Slack, Google Drive, and ClickUp) and create multiple documents in one workflow.",
         example:
           "Marketing: research competitors and build a full comparison doc. Sales: analyze distributor performance data and build success playbooks. CS: analyze a folder of ticket exports. Creative: read your brand assets folder and generate on-brand content.",
       },
@@ -361,7 +361,7 @@ export const slides = [
         letter: "Co",
         name: "Claude Cowork",
         description:
-          "Claude with agency. It can work on entire folders, read all the files inside, and use them as context for your project. It connects to advanced tools through MCP (Model Context Protocol) — like Slack, Google Drive, and ClickUp. It can also create multiple files and documents in one workflow.",
+          "Claude with agency. Upload files to a Project and Claude remembers them across conversations — PDFs, docs, spreadsheets, images. It can also connect to your work tools through integrations (like Slack, Google Drive, and ClickUp) and create multiple documents in one workflow.",
         example:
           "Marketing: research competitors and build a full comparison doc. Sales: analyze distributor performance data and build success playbooks. CS: analyze a folder of ticket exports. Creative: read your brand assets folder and generate on-brand content.",
       },
@@ -389,7 +389,7 @@ export const slides = [
       label: "AI users never go beyond basic chat. That's fine as a starting point — but the real productivity gains are in the next level.",
     },
     limitations: [
-      "Can't read files on your computer — you have to paste or upload content",
+      "You have to upload files manually — it can't access your computer or browse the web on its own",
       "Can't take actions in other tools (no Slack, no Drive, no ClickUp)",
       "Can't work on multi-step tasks autonomously — you drive every step",
     ],
@@ -437,10 +437,10 @@ export const slides = [
     tag: "CLAUDE COWORK · YOUR AI ASSISTANT",
     headline: "Cowork doesn't just talk. It works.",
     description:
-      "Cowork can browse the web, read files, and take action across your tools. Create a Project to save files, instructions, and context — Claude remembers everything next time you come back. It's like handing a brief to an assistant who actually gets things done.",
+      "Cowork can browse the web, work with uploaded files, and connect to your tools. Create a Project to save files, instructions, and context — Claude remembers everything next time you come back. It's like handing a brief to an assistant who actually gets things done.",
     stat: {
-      number: "10x",
-      label: "the output. Users who use Projects and Cowork report finishing tasks in minutes that used to take hours.",
+      number: "Way",
+      label: "more output. People who use Projects and Cowork consistently finish in minutes what used to take hours — less copy-pasting, less context-setting, less starting over.",
     },
     tryThis: [
       {
@@ -532,39 +532,7 @@ export const slides = [
     footnote: "Start with Chat. Graduate to Cowork. Code is for developers.",
   },
 
-  // ─── SECTION G: RECAP, SAFE USE & WRAP-UP ───
-  {
-    id: 21.5,
-    type: "cards",
-    tag: "WHAT YOU LEARNED TODAY",
-    headline: "Quick recap.",
-    cards: [
-      {
-        letter: "1",
-        name: "3 LLMs",
-        description: "Claude, ChatGPT, Gemini — different strengths, same core skill to use them.",
-        example: "Unicity's primary tool is Claude.",
-      },
-      {
-        letter: "2",
-        name: "3 Ways to Use Claude",
-        description: "Chat for quick tasks. Cowork for multi-step workflows with files and tools. Code for developers.",
-        example: "Start with Chat. Graduate to Cowork.",
-      },
-      {
-        letter: "3",
-        name: "Prompting",
-        description: "Identity → Problem → Desired Outcome. Spend 2 minutes thinking, save 20 minutes redoing.",
-        example: "The quality of your ask = the quality of your answer.",
-      },
-      {
-        letter: "4",
-        name: "Context Window",
-        description: "AI has a memory limit. Long conversations get worse. New topic = new chat.",
-        example: "Use plan files and Claude.md to keep important context persistent.",
-      },
-    ],
-  },
+  // ─── SECTION G: SAFE USE, RECAP & WRAP-UP ───
   {
     id: 21,
     type: "roles-contrast",
@@ -593,6 +561,38 @@ export const slides = [
     },
     takeaway:
       "If you wouldn't post it on a public billboard, don't put it in a prompt.",
+  },
+  {
+    id: 21.5,
+    type: "cards",
+    tag: "TL;DR — WHAT TO ACTUALLY DO",
+    headline: "When do I use what?",
+    cards: [
+      {
+        letter: "💬",
+        name: "Use Chat when…",
+        description: "You need a quick answer, a rewrite, a brainstorm, or you're working with one thing at a time. Paste it in, get it back, move on.",
+        example: "\"Rewrite this email.\" \"Give me 5 subject lines.\" \"Explain this data.\" \"What's a better way to say this?\"",
+      },
+      {
+        letter: "🚀",
+        name: "Use Cowork when…",
+        description: "You have a real project — multiple files, research across sites, or a multi-step task you'd normally spend an hour on. Hand it a brief and let it work.",
+        example: "\"Research 5 competitors and build a comparison doc.\" \"Analyze this folder of tickets.\" \"Read my brand guide and write content that matches.\"",
+      },
+      {
+        letter: "✍️",
+        name: "Prompting superpower",
+        description: "Identity → Problem → Desired Outcome. 2 minutes of thinking saves 20 minutes of redoing. The quality of your ask = the quality of your answer.",
+        example: "Don't say \"write an email.\" Say who you are, what happened, and exactly what you want back.",
+      },
+      {
+        letter: "🧠",
+        name: "Context window hack",
+        description: "AI has a memory limit. The longer the chat, the worse it gets. New topic = new chat. Keep it fresh.",
+        example: "If Claude starts forgetting things or giving weird answers — start a new conversation. It's not broken, it's full.",
+      },
+    ],
   },
   {
     id: 22,
