@@ -10,87 +10,233 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg-deep: #05050A;
+      --bg-surface: rgba(255,255,255,0.025);
+      --emerald: #10B981;
+      --cyan: #06B6D4;
+      --magenta: #EC4899;
+      --orange: #FF6B35;
+      --violet: #9e8eff;
+      --text-primary: #fff;
+      --text-muted: rgba(255,255,255,0.45);
+      --text-dim: rgba(255,255,255,0.25);
+      --border-subtle: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
-      background: #05050A;
+      background: var(--bg-deep);
       font-family: "Outfit", sans-serif;
-      color: #fff;
+      color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* Noise texture */
-    body::before {
+    /* ── HERO ── */
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Dark vignette overlay — gradient from all edges + strong bottom */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to top, var(--bg-deep) 0%, rgba(5,5,10,0.7) 30%, rgba(5,5,10,0.15) 55%, rgba(5,5,10,0.3) 100%),
+        radial-gradient(ellipse at center, transparent 40%, rgba(5,5,10,0.4) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 clamp(32px, 6vw, 80px) clamp(64px, 10vh, 120px);
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--emerald);
+      border: 1px solid rgba(16,185,129,0.35);
+      padding: 5px 14px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-title {
+      font-weight: 800;
+      font-size: clamp(56px, 10vw, 112px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroFadeUp 1s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-title .accent { color: var(--emerald); }
+    .hero-title .dim {
+      color: rgba(255,255,255,0.35);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .hero-divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: heroScaleX 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 22px);
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      max-width: 480px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeUp 0.8s 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Scroll indicator */
+    .scroll-cue {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: heroFadeUp 0.6s 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      cursor: pointer;
+    }
+
+    .scroll-cue-label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+
+    .scroll-cue-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── SESSIONS SECTION ── */
+
+    .sessions {
+      position: relative;
+      z-index: 1;
+      padding: clamp(80px, 12vh, 140px) clamp(24px, 6vw, 80px) clamp(60px, 8vh, 100px);
+    }
+
+    /* Noise texture over sessions area */
+    .sessions::before {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Grid overlay */
-    body::after {
+    /* Faint grid */
+    .sessions::after {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
       background-size: 80px 80px;
       pointer-events: none;
       z-index: 0;
     }
 
-    .hub {
+    .sessions-inner {
       position: relative;
       z-index: 1;
-      max-width: 900px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 12vh 6vw 8vh;
     }
 
-    .tag {
-      display: inline-block;
+    .section-label {
       font-family: "JetBrains Mono", monospace;
       font-size: 10px;
       letter-spacing: 0.22em;
-      color: #10B981;
-      border: 1px solid rgba(16,185,129,0.35);
-      padding: 5px 14px;
-      margin-bottom: 28px;
+      color: var(--text-dim);
       text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(16px);
     }
 
-    h1 {
-      font-weight: 800;
-      font-size: clamp(48px, 8vw, 88px);
-      line-height: 0.95;
-      margin-bottom: 8px;
+    .section-label.revealed {
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .section-heading {
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 44px);
       letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    h1 .accent { color: #10B981; }
-    h1 .dim { color: rgba(255,255,255,0.4); font-weight: 300; font-style: italic; }
-
-    .subtitle {
-      font-size: clamp(15px, 1.8vw, 20px);
-      color: rgba(255,255,255,0.5);
-      line-height: 1.65;
-      max-width: 520px;
-      margin-bottom: 64px;
+    .section-heading.revealed {
+      animation: fadeUp 0.7s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .divider {
-      width: 48px;
-      height: 2px;
-      background: linear-gradient(90deg, #10B981, #06B6D4);
-      margin-bottom: 32px;
-    }
+    .section-heading .accent { color: var(--emerald); }
+
+    /* ── CARDS ── */
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
 
@@ -99,13 +245,21 @@
       display: flex;
       flex-direction: column;
       padding: 32px 28px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
       text-decoration: none;
       color: inherit;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
+      /* scroll reveal */
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .card.revealed {
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .card::before {
@@ -116,19 +270,25 @@
       right: 0;
       height: 3px;
       border-radius: 12px 12px 0 0;
+      opacity: 0;
       transition: opacity 0.3s;
     }
 
     .card:hover {
-      border-color: rgba(255,255,255,0.15);
+      border-color: var(--border-hover);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+
+    .card.revealed:hover {
+      transform: translateY(-4px);
     }
 
     .card.emerald::before { background: linear-gradient(90deg, #10B981, #06B6D4); }
     .card.magenta::before { background: linear-gradient(90deg, #EC4899, #B66DFF); }
     .card.orange::before  { background: linear-gradient(90deg, #FF6B35, #E8FF47); }
     .card.cyan::before    { background: linear-gradient(90deg, #06B6D4, #F4D44F); }
+    .card.violet::before  { background: linear-gradient(90deg, #9e8eff, #EC4899); }
 
     .card:hover::before { opacity: 1; }
 
@@ -136,7 +296,7 @@
       font-family: "JetBrains Mono", monospace;
       font-size: 9px;
       letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.25);
+      color: var(--text-dim);
       margin-bottom: 16px;
       text-transform: uppercase;
     }
@@ -150,7 +310,7 @@
 
     .card-desc {
       font-size: 14px;
-      color: rgba(255,255,255,0.45);
+      color: var(--text-muted);
       line-height: 1.6;
       flex: 1;
       margin-bottom: 24px;
@@ -184,16 +344,22 @@
       transition: gap 0.3s;
     }
 
-    .card.emerald .card-cta { color: #10B981; }
-    .card.magenta .card-cta { color: #EC4899; }
-    .card.orange .card-cta  { color: #FF6B35; }
-    .card.cyan .card-cta    { color: #06B6D4; }
+    .card.emerald .card-cta { color: var(--emerald); }
+    .card.magenta .card-cta { color: var(--magenta); }
+    .card.orange .card-cta  { color: var(--orange); }
+    .card.cyan .card-cta    { color: var(--cyan); }
+    .card.violet .card-cta  { color: var(--violet); }
 
     .card:hover .card-cta { gap: 14px; }
 
+    /* ── FOOTER ── */
+
     .footer {
-      margin-top: 80px;
-      padding-top: 32px;
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px clamp(24px, 6vw, 80px);
       border-top: 1px solid rgba(255,255,255,0.06);
       font-family: "JetBrains Mono", monospace;
       font-size: 10px;
@@ -201,122 +367,200 @@
       letter-spacing: 0.15em;
     }
 
-    /* Glow */
+    /* ── AMBIENT GLOW ── */
+
     .glow {
       position: fixed;
-      top: -200px;
-      left: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(16,185,129,0.06) 0%, transparent 70%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
       pointer-events: none;
       z-index: 0;
+      opacity: 0.5;
     }
 
+    .glow--tl {
+      top: -300px;
+      left: -300px;
+      background: radial-gradient(ellipse, rgba(16,185,129,0.05) 0%, transparent 70%);
+    }
+
+    .glow--br {
+      bottom: -300px;
+      right: -300px;
+      background: radial-gradient(ellipse, rgba(6,182,212,0.04) 0%, transparent 70%);
+    }
+
+    /* ── KEYFRAMES ── */
+
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heroScaleX {
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.7; transform: scaleY(1.3); }
+    }
+
+    /* ── REDUCED MOTION ── */
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-tag, .hero-title, .hero-divider, .hero-subtitle, .scroll-cue,
+      .section-label, .section-heading, .card {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+      .scroll-cue-line { animation: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+
     @media (max-width: 600px) {
-      .hub { padding: 8vh 5vw 6vh; }
+      .hero-content { padding: 0 24px 56px; }
       .cards { grid-template-columns: 1fr; }
+      .scroll-cue { bottom: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
 
-  <div class="hub">
-    <div class="tag">UNICITY · PRODUCT & DESIGN</div>
+  <!-- Ambient glows -->
+  <div class="glow glow--tl"></div>
+  <div class="glow glow--br"></div>
 
-    <h1>
-      <span class="dim">Unicity</span><br/>
-      AI <span class="accent">Academy</span>
-    </h1>
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero">
+    <video
+      class="hero-video"
+      src="./ajbg.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+    <div class="hero-overlay"></div>
 
-    <div class="divider"></div>
-
-    <p class="subtitle">
-      Training resources for the AI Academy. Pick a version to present.
-    </p>
-
-    <div class="cards">
-
-      <a href="./ai-academy-session01-wow/" class="card cyan">
-        <div class="card-version">PRODUCT & DESIGN · SESSION 01</div>
-        <div class="card-title">AI Academy — Product & Design</div>
-        <div class="card-desc">
-          Full-screen cinematic deck for Product Managers and Designers. CRAFT framework, context windows, Claude ecosystem, and hands-on setup guide.
-        </div>
-        <div class="card-stack">
-          <span class="chip">VITE</span>
-          <span class="chip">REACT</span>
-          <span class="chip">FRAMER MOTION</span>
-          <span class="chip">24 SLIDES</span>
-        </div>
-        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
-      </a>
-
-      <a href="./ai-fundamentals-v2.5/" class="card violet">
-        <div class="card-version">CROSS-DEPARTMENT · AI FUNDAMENTALS V2.5</div>
-        <div class="card-title">AI Fundamentals — Session 01 (V2.5)</div>
-        <div class="card-desc">
-          The ultimate $100k-tier cinematic overhaul. Completely rewritten narrative with aggressive visual consolidation, 3D Bento grids, and generated abstract assets.
-        </div>
-        <div class="card-stack">
-          <span class="chip">VITE</span>
-          <span class="chip">REACT</span>
-          <span class="chip">FRAMER MOTION</span>
-        </div>
-        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
-      </a>
-
-      <a href="./ai-fundamentals-v2/" class="card magenta">
-        <div class="card-version">CROSS-DEPARTMENT · AI FUNDAMENTALS V2</div>
-        <div class="card-title">AI Fundamentals — Session 01 (V2)</div>
-        <div class="card-desc">
-          Brand new cinematic redesign with interactive animations, dark/light modes, and dynamic mesh backgrounds. Same text content, fully elevated experience.
-        </div>
-        <div class="card-stack">
-          <span class="chip">VITE</span>
-          <span class="chip">REACT</span>
-          <span class="chip">FRAMER MOTION</span>
-          <span class="chip">32 SLIDES</span>
-        </div>
-        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
-      </a>
-
-      <a href="./ai-fundamentals-v3/" class="card orange">
-        <div class="card-version">CROSS-DEPARTMENT · AI FUNDAMENTALS V3</div>
-        <div class="card-title">AI Fundamentals — Session 01 (V3)</div>
-        <div class="card-desc">
-          Bold experimental redesign of the full 32-slide deck with cinematic motion, moving backgrounds, and light/dark presentation modes. Same slide text, completely new visual experience.
-        </div>
-        <div class="card-stack">
-          <span class="chip">VITE</span>
-          <span class="chip">REACT</span>
-          <span class="chip">FRAMER MOTION</span>
-          <span class="chip">32 SLIDES</span>
-        </div>
-        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
-      </a>
-
-      <a href="./ai-fundamentals-session01/" class="card emerald">
-        <div class="card-version">CROSS-DEPARTMENT · AI FUNDAMENTALS (ORIGINAL)</div>
-        <div class="card-title">AI Fundamentals — Session 01 (V1)</div>
-        <div class="card-desc">
-          AI Fundamentals for Marketing, Sales, Customer Service &amp; Creative. LLM landscape, Claude products, CRAFT prompting, context windows, and safe use policy.
-        </div>
-        <div class="card-stack">
-          <span class="chip">VITE</span>
-          <span class="chip">REACT</span>
-          <span class="chip">FRAMER MOTION</span>
-          <span class="chip">32 SLIDES</span>
-        </div>
-        <div class="card-cta">OPEN PRESENTATION <span>→</span></div>
-      </a>
-
+    <div class="hero-content">
+      <div class="hero-tag">UNICITY &middot; PRODUCT & DESIGN</div>
+      <h1 class="hero-title">
+        <span class="dim">Unicity</span><br />
+        AI <span class="accent">Academy</span>
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">
+        Training resources for the AI Academy. Pick a session to present.
+      </p>
     </div>
 
-    <div class="footer">
-      UNICITY · AI ACADEMY · SESSION 01
+    <div class="scroll-cue" id="scrollCue">
+      <span class="scroll-cue-label">Scroll</span>
+      <div class="scroll-cue-line"></div>
     </div>
-  </div>
+  </section>
+
+  <!-- ═══════ SESSIONS ═══════ -->
+  <section class="sessions">
+    <div class="sessions-inner">
+      <div class="section-label" data-reveal>001 / SESSIONS</div>
+      <h2 class="section-heading" data-reveal>
+        Choose a <span class="accent">presentation</span>
+      </h2>
+
+      <div class="cards">
+
+        <a href="./ai-academy-session01-wow/" class="card cyan" data-reveal>
+          <div class="card-version">PRODUCT & DESIGN &middot; SESSION 01</div>
+          <div class="card-title">AI Academy &mdash; Product & Design</div>
+          <div class="card-desc">
+            Full-screen cinematic deck for Product Managers and Designers. CRAFT framework, context windows, Claude ecosystem, and hands-on setup guide.
+          </div>
+          <div class="card-stack">
+            <span class="chip">VITE</span>
+            <span class="chip">REACT</span>
+            <span class="chip">FRAMER MOTION</span>
+            <span class="chip">24 SLIDES</span>
+          </div>
+          <div class="card-cta">OPEN PRESENTATION <span>&rarr;</span></div>
+        </a>
+
+        <a href="./ai-fundamentals-session01/" class="card emerald" data-reveal>
+          <div class="card-version">CROSS-DEPARTMENT &middot; AI FUNDAMENTALS (ORIGINAL)</div>
+          <div class="card-title">AI Fundamentals &mdash; Session 01 (V1)</div>
+          <div class="card-desc">
+            AI Fundamentals for Marketing, Sales, Customer Service &amp; Creative. LLM landscape, Claude products, CRAFT prompting, context windows, and safe use policy.
+          </div>
+          <div class="card-stack">
+            <span class="chip">VITE</span>
+            <span class="chip">REACT</span>
+            <span class="chip">FRAMER MOTION</span>
+            <span class="chip">32 SLIDES</span>
+          </div>
+          <div class="card-cta">OPEN PRESENTATION <span>&rarr;</span></div>
+        </a>
+
+      </div>
+
+      <div class="footer">
+        UNICITY &middot; AI ACADEMY &middot; 2025
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ── Scroll-triggered reveals via IntersectionObserver ──
+    const revealEls = document.querySelectorAll('[data-reveal]');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const parent = el.parentElement;
+            const siblings = parent ? Array.from(parent.querySelectorAll('[data-reveal]')) : [];
+            const idx = siblings.indexOf(el);
+            const delay = el.classList.contains('card') ? idx * 0.08 : 0;
+
+            el.style.animationDelay = `${delay}s`;
+            el.classList.add('revealed');
+            observer.unobserve(el);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    for (const el of revealEls) { observer.observe(el); }
+
+    // ── Scroll cue click → smooth scroll to sessions ──
+    document.getElementById('scrollCue').addEventListener('click', () => {
+      document.querySelector('.sessions').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ── Fade scroll cue on scroll ──
+    const cue = document.getElementById('scrollCue');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const fade = Math.max(0, 1 - scrollY / 300);
+          cue.style.opacity = fade;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
 </body>
 </html>

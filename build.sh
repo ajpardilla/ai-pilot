@@ -45,6 +45,7 @@ cp -r ai-fundamentals-v2/dist/* _output/ai-fundamentals-v2/
 cp -r ai-fundamentals-v2.5/dist/* _output/ai-fundamentals-v2.5/
 cp -r ai-fundamentals-v3/dist/* _output/ai-fundamentals-v3/
 cp index.html _output/
+cp ajbg.mp4 _output/
 
 echo "=== Build complete ==="
 ls -la _output/
